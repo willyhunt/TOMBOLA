@@ -1,51 +1,471 @@
+var isVerbose = true;
+
+var maxRetries = 500; // Maximum number of retries
+var retryCount = 0;  // Counter for retries
+var spreadSheetID;
+var maxRow;
+var minMaxRow;
+
+var currentRowTirage;
+var minMaxRowTickets;  
+
+var nombreDeLots = 0;
+var minRowTickets = 0;
+var maxRowTickets = 0;
+var data = [];
+
+
+var ticket = [
+    ticketsgagnant = 0,  
+    commercant = "",     
+    nomLot = "",    
+    numeroLot = 0,  
+    affichage = false,  
+    duree = 0
+]
+
 document.addEventListener('DOMContentLoaded', function() {
-    var dropZones = document.querySelectorAll('.logo-container');
+    // Vérifier si les données existent dans le stockage local
+    const storedData = localStorage.getItem('data');
 
-    // Fonction pour gérer le dépôt d'images
-    function handleDrop(e) {
-        e.stopPropagation();
-        e.preventDefault();
+    if (storedData) {
+        // Convertir la chaîne JSON en un objet JavaScript
+        const data = JSON.parse(storedData);
+        console.log(data);
 
-        var dt = e.dataTransfer;
-        var files = dt.files;
+        // Utiliser les données comme nécessaire
+        // Par exemple, afficher des informations dans la console ou sur la page
+        console.log(`Nombre de Lots: ${data.nombreDeLots}`);
+        console.log(`Min Row Tickets: ${data.minRowTickets}`);
+        console.log(`Max Row Tickets: ${data.maxRowTickets}`);
 
-        if (files.length) {
-            var file = files[0];
-            var reader = new FileReader();
+        // Afficher les tickets gagnants pour l'affichage (exemple simplifié)
+        data.ticketsGagnantsPourAffichage.forEach((ticket, index) => {
+            console.log(`Ticket ${index + 1}:`, ticket);
+            // Ajouter des éléments HTML pour chaque ticket si nécessaire
+            // Exemple:
+            // document.body.innerHTML += `<p>Ticket ${index + 1}: ${ticket.NuméroTicketGagnant}</p>`;
+        });
+
+        // Supprimer les données stockées pour éviter de les réutiliser accidentellement
+        localStorage.removeItem('data');
+    } else {
+        console.log("Aucune donnée trouvée dans le stockage local.");
+    }
+});
+
+/*
+
+function init() {
+    nombreDeLots = parseInt(getURLParameter('nombreDeLots'), 10); // Example: 'nombreDeLots=100'
+    minRowTickets = parseInt(getURLParameter('minRowTickets'), 10); // Example: 'minRowTickets=100'
+    maxRowTickets = parseInt(getURLParameter('maxRowTickets'), 10); // Example: 'maxRowTickets=100'
+    data = []; // Initialize the data array
+
+    for (let i = 0; i < nombreDeLots; i++) {
+        // Assuming each lot has a unique index in the URL parameters
+        let ticket = {
+            ticketsgagnant: parseInt(getURLParameter(`ticketsgagnants${i}`), 10),
+            commercant: getURLParameter(`commercants${i}`),
+            nomLot: getURLParameter(`nomLots${i}`),
+            numeroLot: parseInt(getURLParameter(`numeroLot${i}`), 10),
+            affichage: getURLParameter(`affichage${i}`) === 'true',
+            duree: parseInt(getURLParameter(`durees${i}`), 10)
+        };
+        data.push(ticket);
+    }
+}
+
+// Utility function to get URL parameters
+function getURLParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}*/
+
+
+
+
+
+function logVerbose(message) {
+    if (isVerbose) {
+        console.log(message);
+    }
+}
+  
+/*
+function SpinWheel(data) {
+    var maxDisplayedDigits = 6;
+    var min = minRowTickets;
+    var max = maxRowTickets;
+    var winningNumber = data.ticketsgagnants;
+    var commercant = data.commercant;
+    var lotName = data.lotName;
+    var lotNumber = data.lotNumber;
+    var titlePrefix = "Tirage du lot N°";
+    var duree = data.duree*1000;
+    var referenceSpeed = 10*1000;
+    var referenceIntervalIncreaseFactor = [1, 1.2, 1.4, 1.6, 1.8, 2];
+    var referenceRandomBeforeStopNumbers = [8, 12 , 14, 16, 18, 22];
+    
+    // Calcul pour ajuster l'intervalle de manière fluide
+    var iteration = 0;
+    var intervalInitial = 10;
+    var interval = intervalInitial;
+    var accumulatedTime = 0;
+    var accumulatedSlowingTime = 0;
+    var startSlowing = false;
+    var slowingPercentageOfTotalDuration = 0.3;
+
+    var slowingFactor = CalculateSlowingFactor(50, referenceIntervalIncreaseFactor, referenceRandomBeforeStopNumbers, max.toString().length, maxDisplayedDigits,maxDisplayedDigits - max.toString().length, duree*slowingPercentageOfTotalDuration);
+
+    var maskData = {
+        nbDigits: max.toString().length,
+        maxDigit: maxDisplayedDigits,
+        minDigit: maxDisplayedDigits - max.toString().length,
+        currentNumber: InitRandomCurrentNumber(max), // Initialize directly
+        winningNumberInDigits: DecomposeWinningNumberInDigits(winningNumber), // Initialize directly
+        refreshingMask: [0, 0, 0, 0, 0, 0],
+        //finishedMask: InitializeFinishedMask([1, 1, 1, 1, 1, 1],max.toString().length),
+        finishedMask: [1, 1, 1, 1, 1, 1],
+        slowingMask: [1, 1, 1, 1, 1, 1],
+        slowingSelectMask: [1, 0, 0, 0, 0, 0],
+        slowingIterationCount: [0, 0, 0, 0, 0, 0],
+        slowingCycleCount: [0, 0, 0, 0, 0, 0],
+        intervalIncreaseFactor: AdaptSlowingSpeed(referenceIntervalIncreaseFactor,slowingFactor),
+        randomBeforeStopNumbers: AdaptSlowingSpeed(referenceRandomBeforeStopNumbers,slowingFactor)
+    };
+
+    //var estimatedSlowingTime = CalculateEstimatedSlowingTime(maskData);
+    
+    logVerbose("slowingFactor: " + slowingFactor);   
+    logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
+    logVerbose("randomBeforeStopNumbers: " + maskData.randomBeforeStopNumbers); 
+    logVerbose("winningNumberInDigits: " + maskData.winningNumberInDigits);   
+    logVerbose("nbDigits: " + maskData.nbDigits); 
+    logVerbose("maxDigit: " + maskData.maxDigit);   
+    logVerbose("minDigit: " + maskData.minDigit); 
+    //logVerbose("estimatedSlowingTime: " + estimatedSlowingTime);    
+    /*logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
+    logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
+    logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);     
+
+
+
+    function InitializeFinishedMask(p_finishedMask, p_size) {
+        var adaptedParam = [];
+
+        for (var i = 0; i < p_finishedMask.length; i++) {
+            if( i < (p_finishedMask.length - p_size)) {
+            adaptedParam[i] = 0;
+            } else {
+            adaptedParam[i] = 1;
+            }
+        } 
+        logVerbose("adaptedParam: " + adaptedParam);
+
+        return adaptedParam;
+
+    }
+
+    function CalculateSlowingFactor(p_precision, p_referenceIntervalIncreaseFactor, p_referenceRandomBeforeStopNumbers, p_nbDigits, p_maxDigit, p_minDigit, p_duree) {
+        var p_estimatedSlowingFactor = 0.1;
+        var precisionRange = p_duree * 0.05; // 1% of p_duree as the precision range
+
+        for (var iteration = 0; iteration < p_precision; iteration++) {
+            var p_estimatedSlowingTime = 0;
+
+            for (var i = p_minDigit; i < p_maxDigit; i++) {
+                p_estimatedSlowingTime += Math.max(p_referenceIntervalIncreaseFactor[i]*p_estimatedSlowingFactor, 1) * p_nbDigits * intervalInitial * (p_referenceRandomBeforeStopNumbers[i]*p_estimatedSlowingFactor + 5);
+            }
             
-            reader.onload = function(event) {
-                var imgElement = e.target.querySelector('img') || document.createElement('img');
-                imgElement.src = event.target.result;
-                
-                if (!e.target.querySelector('img')) {
-                    e.target.appendChild(imgElement);
+            logVerbose("p_estimatedSlowingTime: " + p_estimatedSlowingTime); 
+            logVerbose("p_estimatedSlowingFactor: " + p_estimatedSlowingFactor);   
+
+            var difference = p_duree - p_estimatedSlowingTime;
+            
+            if(difference<0) {
+                p_estimatedSlowingFactor= 0.1;
+                return p_estimatedSlowingFactor;
+            }
+            if (Math.abs(difference) <= precisionRange) {
+                break; // Acceptable difference reached
+            }
+
+            // Adjust slowing factor based on the difference, scaled by reference speed
+            p_estimatedSlowingFactor += difference/p_duree*0.1;
+        }
+
+        return p_estimatedSlowingFactor;
+    }
+
+    function AdaptSlowingSpeed(p_param, p_slowingFactor) {
+        var adaptedParam = [];
+
+        for (var i = 0; i < p_param.length; i++) {
+            adaptedParam[i] = p_param[i] * p_slowingFactor;
+        } 
+        logVerbose("adaptedParam: " + adaptedParam);
+
+        return adaptedParam;
+    }
+
+    function InitRandomCurrentNumber(p_maxvalue) {
+        var length = p_maxvalue.toString().length;
+        var lowerBound = Math.pow(10, length - 1);
+        var upperBound = Math.pow(10, length) - 1;
+
+        var randomNumber = Math.floor(Math.random() * (upperBound - lowerBound + 1)) + lowerBound;
+        var numberStr = randomNumber.toString().padStart(6, '0'); // Pad to ensure at least 6 digits
+
+        return numberStr.split('').map(digit => parseInt(digit, 10)); // Convert each character to a number
+    }
+
+    function DecomposeWinningNumberInDigits(p_winningNumber) {
+        var numberStr = p_winningNumber.toString().padStart(6, '0'); // Pad to ensure at least 6 digits
+
+        return numberStr.split('').map(digit => parseInt(digit, 10)); // Convert each character to a number
+    }
+
+    function DisplayCurrentNumber(p_maskData) {
+        for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++){
+        document.getElementById("ticketNumberDigit"+i).textContent = p_maskData.currentNumber[i];
+        }
+        return p_maskData;
+    }
+
+    function CalculateNewCurrentNumber (p_maskData){1
+        
+        logVerbose("---IN CalculateNewCurrentNumber ---"); 
+        logVerbose("currentNumber: " + p_maskData.currentNumber); 
+        logVerbose("finishedMask: " + p_maskData.finishedMask); 
+        logVerbose("slowingMask: " + p_maskData.slowingMask);   
+        logVerbose("refreshingMask: " + p_maskData.refreshingMask);
+        for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++) {
+        if (p_maskData.refreshingMask[i] && p_maskData.finishedMask[i] && p_maskData.slowingMask[i]){
+            p_maskData.currentNumber[i]=(p_maskData.currentNumber[i]+1)%10;
+        }
+        } 
+        logVerbose("NewNumber: " + p_maskData.currentNumber); 
+        return p_maskData.currentNumber;
+    }
+
+    function CalculateRefreshingMask(p_maskData, p_iteration) {
+        var newMask = [0,0,0,0,0,0]; // Défini plus tard
+        var maskiteration = p_iteration%p_maskData.nbDigits+p_maskData.minDigit;
+        newMask[maskiteration] = 1; 
+        //logVerbose("maskiteration: " + maskiteration);
+        //logVerbose("newMask: " + newMask);       
+        return newMask;
+    }
+
+    function CalculateSlowingMask(p_maskData, p_iteration) {   
+        for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++) {
+            // Process only if this digit is not finished yet
+            if (p_maskData.finishedMask[i]) {
+                if (p_maskData.refreshingMask[i]) {
+                var maskIterations = Math.floor(p_maskData.slowingIterationCount[i]%p_maskData.intervalIncreaseFactor[i]);    
+                logVerbose("maskIterations: " + maskIterations);       
+                logVerbose("p_maskData.intervalIncreaseFactor[i]: " + p_maskData.intervalIncreaseFactor[i]);       
+                logVerbose(" p_maskData.slowingIterationCount[i]: " +  p_maskData.slowingIterationCount[i]);   
+                p_maskData.slowingIterationCount[i]++;
+        
+                if(maskIterations == 0){
+                    p_maskData.slowingMask[i] = 1;
+                    p_maskData.slowingCycleCount[i]++;
+                    logVerbose("p_maskData.slowingCycleCount[i]: " + p_maskData.slowingCycleCount[i]);
+                } else {
+                    p_maskData.slowingMask[i] = 0;
+                }
+                }
+                return p_maskData;
+            }
+        }
+        return p_maskData;
+    }
+
+    function CalculateFinishedMask(p_maskData) {
+        for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++) {
+            //logVerbose("------------ i :"+i);
+            if (p_maskData.finishedMask[i]) {
+                var digitWinningNumber = p_maskData.winningNumberInDigits[i];
+                var digitCurrentNumber = p_maskData.currentNumber[i];
+                //logVerbose("digitWinningNumber:"+digitWinningNumber);
+                //logVerbose("digitCurrentNumber:"+digitCurrentNumber);
+                //logVerbose("slowingCycleCount:"+p_maskData.slowingCycleCount[i]);
+                if (p_maskData.slowingCycleCount[i] >= p_maskData.randomBeforeStopNumbers[i] && Number(digitCurrentNumber) == Number(digitWinningNumber)) {
+                        p_maskData.finishedMask[i] = 0;
+                        p_maskData.slowingMask[i] = 0;
+                        return p_maskData;
+                    }
+                }
+            }                       
+        return p_maskData;
+    }
+
+    function ActivateDrawButton() {          
+            var btn = document.getElementById('tirageButton');
+            btn.className = 'waves-effect waves-light btn red';
+    }
+
+    function UpdateNumbers(p_maskData) {
+        //logVerbose("currentNumber: " + p_maskData.currentNumber);
+        //logVerbose("winningNumberInDigits: " + p_maskData.winningNumberInDigits);
+        //logVerbose("refreshingMask: " + p_maskData.refreshingMask);
+
+        if (accumulatedTime>duree*(1-slowingPercentageOfTotalDuration)){
+            startSlowing = true;
+        }
+        logVerbose("accumulatedTime: "+accumulatedTime);
+        //logVerbose("duree: "+duree);
+        //logVerbose("startSlowing: "+startSlowing);
+
+        p_maskData.refreshingMask = CalculateRefreshingMask(p_maskData, iteration);
+        if (startSlowing) {
+            p_maskData = CalculateFinishedMask(p_maskData);
+            p_maskData = CalculateSlowingMask(p_maskData, iteration);
+            accumulatedSlowingTime+=interval;
+            logVerbose("accumulatedSlowingTime: "+accumulatedSlowingTime);
+        }
+        
+        p_maskData.currentNumber = CalculateNewCurrentNumber(p_maskData);        
+        p_maskData = DisplayCurrentNumber(p_maskData);
+        accumulatedTime += interval;
+        iteration++;
+        
+        if (startSlowing && p_maskData.finishedMask[p_maskData.maxDigit-1] == 0) {
+            logVerbose("Spin completed");
+            document.getElementById("commercant").textContent = commercant;
+            ActivateDrawButton();
+            return; // Spin completed
+        }
+
+        setTimeout(() => UpdateNumbers(p_maskData), interval);
+    }
+
+    document.getElementById("lotNumber").textContent = titlePrefix+lotNumber;
+    document.getElementById("lotName").textContent = lotName;
+    
+    // Vérifier si winningNumber n'est pas un entier
+    if (!Number.isInteger(winningNumber) || duree == 0 ) {
+        document.getElementById("ticketNumberDigit0").textContent = winningNumber;
+        if (Number.isInteger(winningNumber)){
+            document.getElementById("commercant").textContent = commercant;
+        }
+        logVerbose("Winning number is not an integer or time set to 0 ");
+        logVerbose("winningNumber: " + winningNumber);
+        logVerbose("commercant: " + commercant);
+        ActivateDrawButton();
+        return; // Sortir de la fonction
+    }
+
+    UpdateNumbers(maskData);
+}
+
+function effectuerTirage() {
+    logVerbose("EffectuerTirage called. Current Row: " + currentRowTirage);
+    var btn = document.getElementById('tirageButton');
+    btn.className = 'waves-effect waves-light btn red disabled'; 
+
+    if (!currentRowTirage || currentRowTirage <= 1 || retryCount >= maxRetries) {
+        alert("Tous les tirages ont été effectués ou limite de tentatives atteinte.");
+        logVerbose("No more lots to draw or max retries reached.");
+        return;
+    }
+
+    clearDisplayFields();
+    logVerbose("Cleared the display fields.");
+
+    google.script.run
+        .withSuccessHandler(function(data) {
+            if (data) {
+            logVerbose("Lot name set: " + data.lotName);
+            retryCount = 0; // Reset retry count
+            SpinWheel(data);
+            currentRowTirage = data.currentRowNumber;
+            } else {                
+            retryCount++;
+            logVerbose("Retrying. Attempt: " + retryCount); 
+            logVerbose("Received null data from getTirageData");
+            setTimeout(effectuerTirage, 1000);
+            } 
+        })
+        .withFailureHandler(showError)
+        .getTirageData(spreadSheetID, currentRowTirage); 
+
+    currentRowTirage--;
+    logVerbose("Decremented currentRowTirage to: " + currentRowTirage);
+}
+
+function clearDisplayFields() {
+    document.getElementById("commercant").textContent = "";
+    document.getElementById("lotName").textContent = "";
+    document.getElementById("lotNumber").textContent = "";
+    document.getElementById("ticketNumberDigit5").textContent = "";
+    document.getElementById("ticketNumberDigit4").textContent = "";
+    document.getElementById("ticketNumberDigit3").textContent = "";
+    document.getElementById("ticketNumberDigit2").textContent = "";
+    document.getElementById("ticketNumberDigit1").textContent = "";
+    document.getElementById("ticketNumberDigit0").textContent = "";
+}
+
+function showError(error) {
+    console.error("Erreur lors du tirage : ", error);
+    alert("Une erreur est survenue : " + error.message);
+    logVerbose("Error in drawing: " + error.message);
+}
+
+
+document.addEventListener('DOMContentLoaded', init);
+*/
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var body = document.body;
+    var logoContainers = document.querySelectorAll('.logo-container');
+
+    body.addEventListener('dragover', function(e) {
+        if (e.target === body) {
+            e.preventDefault();
+        }
+    });
+
+    body.addEventListener('drop', function(e) {
+        if (e.target === body) {
+            e.preventDefault();
+            handleDrop(e, body);
+        }
+    });
+
+    logoContainers.forEach(function(container) {
+        container.addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+
+        container.addEventListener('drop', function(e) {
+            e.preventDefault();
+            handleDrop(e, container);
+        });
+    });
+
+    function handleDrop(e, targetElement) {
+        var file = e.dataTransfer.files[0];
+        if (file && file.type.match('image.*')) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                targetElement.style.backgroundImage = 'url(' + e.target.result + ')';
+                targetElement.style.backgroundSize = 'cover';
+                targetElement.style.backgroundPosition = 'center';
+                if (targetElement.classList.contains('logo-container')) {
+                    targetElement.style.border = 'none'; // Enlever la bordure pour les logo-container
                 }
             };
 
             reader.readAsDataURL(file);
+        } else {
+            alert("Veuillez déposer une image valide.");
         }
     }
-
-    // Fonction pour empêcher le comportement par défaut
-    function handleDragOver(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'copy'; // Montre l'opération de copie
-    }
-
-    // Ajout des écouteurs d'événements pour chaque zone de dépôt
-    dropZones.forEach(function(zone) {
-        zone.addEventListener('dragover', handleDragOver, false);
-        zone.addEventListener('drop', handleDrop, false);
-    });
-
-    console.log("Le contenu HTML a été chargé et analysé.");
-
-    // Exemple d'interaction : affichage d'une alerte lors du clic sur un élément
-    var lotName = document.getElementById('lotName');
-    lotName.addEventListener('click', function() {
-        alert("Bienvenue sur Mon Site Web !");
-    });
 });
-
-// Vous pouvez ajouter d'autres fonctions pour enrichir les interactions utilisateur

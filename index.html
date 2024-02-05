@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <base target="_top">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+          
+    <title>Tombola</title>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Site Web</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-    <div id="drawContainer">
-        <img id="topLogo" src="logo.png" alt="Top Logo">
-        <h1 id="lotName">Bienvenue sur Mon Site Web !</h1>
-        <p id="lotNumber">Ceci est une page HTML statique hébergée sur GitHub Pages.</p>
-        <div class="logo-container">
-            <img src="logo-commercant.png" class="logo-commercant" alt="Logo Commerçant">
-        </div>
-        <div class="side-container">
-            <p id="commercant">Commerçant Exemple</p>
-            <div id="ticketNumber" class="ticketnumber-digit">000000</div>
+  
+    <div id="leftContainer" class="container side-container">
+        <div id="leftDropZone1" class="logo-container logo-commercant"></div>
+        <div id="leftDropZone2" class="logo-container logo-commercant"></div>
+    </div>
+
+    <div id="centerContainer" class="container">
+        <div id="topLogo" class="logo-container"></div>
+        <div id="drawContainer">
+            <h1 id="lotNumber"></h1>
+            <h1 id="lotName">Tirage de la Tombola de Noël</h1>
+            <div id="wheel">
+              <span id="ticketNumberDigit0" class="ticketnumber-digit"></span>
+              <span id="ticketNumberDigit1" class="ticketnumber-digit"></span>
+              <span id="ticketNumberDigit2" class="ticketnumber-digit"></span>
+              <span id="ticketNumberDigit3" class="ticketnumber-digit"></span>
+              <span id="ticketNumberDigit4" class="ticketnumber-digit"></span>
+              <span id="ticketNumberDigit5" class="ticketnumber-digit"></span>
+            </div>
+            <h3 id="commercant"></h3>
+            <a class="waves-effect waves-light btn red disabled" id="tirageButton" onclick="effectuerTirage()"><i class="material-icons left">casino</i>Lancer le Tirage</a>
         </div>
     </div>
+
+    <div id="rightContainer" class="container side-container">
+        <div id="rightDropZone1" class="logo-container logo-commercant"></div>
+        <div id="rightDropZone2" class="logo-container logo-commercant"></div>
+    </div>
+
+
     <script src="script.js"></script>
+
 </body>
 </html>
