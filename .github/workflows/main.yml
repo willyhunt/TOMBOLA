@@ -17,9 +17,14 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Update Data File and Push
+      - name: Save payload to file
         run: |
-          echo 'null' > data.json
+          echo '${{ toJSON(github.event.client_payload) }}' > ./data.json
+        shell: bash
+      
+      - name: Commit and Push Payload File
+        run: |
           git add data.json
-          git commit -m "Update data file" -a || echo "No changes to commit"
+          git commit -m "Update data from webhook" || echo "No changes to commit"
           git push https://${{ secrets.MY_GITHUB_PAT }}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF#refs/heads/}
+
