@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
             'Content-Type': 'application/json'
         },
         params: {
-          filterByFormula: `FIND("${tirageId}", {ID Tirage (from Tirage)})`
+            filterByFormula: encodeURIComponent(`FIND("${tirageId}",{ID Tirage (from Tirage)})`)
         }
     };
 
