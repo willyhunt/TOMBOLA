@@ -9,22 +9,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false 
 
-      - name: Run a script
+      - name: Configure git
         run: |
-          echo "This workflow was triggered by Airtable via webhook!"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
-      - name: Configure git with your user
-        run: |
-          git config user.name "willyhunt"
-          git config user.email "benjamin.lebotland@gmail.com"
-  
-      - name: Update Data File
+      - name: Update Data File and Push
         run: |
           echo 'null' > data.json
           git add data.json
-          git commit -m "Update data file" || echo "No changes to commit"
-          git push
-        env:
-          # This uses the PAT you stored in GitHub Secrets
-          GITHUB_TOKEN: ${{ secrets.MY_PAT }}
+          git commit -m "Update data file" -a || echo "No changes to commit"
+          git push https://${{ secrets.MY_GITHUB_PAT }}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF#refs/heads/}
