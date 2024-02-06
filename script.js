@@ -18,27 +18,47 @@ var nombreDeLots = 0;
 var indexLot = 0;
 var titlePrefix = "Tirage du lot N°";
 
-function init() {
-    fetch('data.json')
-      .then(response => response.json())
-      .then(dataTirage => {
+async function init() {
+    // Extraire le tirageId de l'URL courante
+    const urlParams = new URLSearchParams(window.location.search);
+    const tirageId = urlParams.get('tirageId');
 
-        console.log(dataTirage);
-        var data = dataTirage.tirageData;
-          min = data.minTicket;
-          max = data.maxTicket;
-          ticketsGagnants = data.ticketsGagnants;
-          nombreDeLots = data.ticketsGagnants.length;
-          logVerbose("nombreDeLots: " + nombreDeLots);
-          logVerbose("ticketsGagnants: " + ticketsGagnants);
-          logVerbose("ticketsGagnants[0]: " + ticketsGagnants[indexLot]);
-          logVerbose("ticketsGagnants[0].numeroDuLot: " + ticketsGagnants[indexLot].numeroDuLot);
-          logVerbose("ticketsGagnants[0].affichage: " + ticketsGagnants[indexLot].affichage);
-          var btn = document.getElementById('tirageButton');
-          btn.className = 'waves-effect waves-light btn red'
-        // Use the data in your site
-      });
+    // S'assurer que tirageId est défini avant de continuer
+    if (!tirageId) {
+        console.error('Erreur : tirageId est requis');
+        return;
+    }
+
+    // Construire l'URL pour inclure tirageId en tant que paramètre de requête
+    const apiUrl = `${window.location.origin}/api/getAirtableRecords?tirageId=${tirageId}`;
+
+    // Envoyer la requête GET et traiter la réponse
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const dataTirage = await response.json();
+            console.log(dataTirage);
+            var data = dataTirage.tirageData;
+            min = data.minTicket;
+            max = data.maxTicket;
+            ticketsGagnants = data.ticketsGagnants;
+            nombreDeLots = data.ticketsGagnants.length;
+            logVerbose("nombreDeLots: " + nombreDeLots);
+            logVerbose("ticketsGagnants: " + ticketsGagnants);
+            logVerbose("ticketsGagnants[0]: " + ticketsGagnants[indexLot]);
+            logVerbose("ticketsGagnants[0].numeroDuLot: " + ticketsGagnants[indexLot].numeroDuLot);
+            logVerbose("ticketsGagnants[0].affichage: " + ticketsGagnants[indexLot].affichage);
+            var btn = document.getElementById('tirageButton');
+            btn.className = 'waves-effect waves-light btn red';
+        } else {
+            console.error('Erreur lors de la récupération des données', response);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la récupération des données', error);
+    }
 }
+
+
 
 function SpinWheel(p_ticket) {
     var maxDisplayedDigits = 6;
