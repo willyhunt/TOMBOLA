@@ -23,18 +23,18 @@ function init() {
       .then(response => response.json())
       .then(data => {
 
-      min = data.minTicket;
-      max = data.maxTicket;
-      ticketsGagnants = data.ticketsGagnants;
-      nombreDeLots = data.ticketsGagnants.length;
-      logVerbose("nombreDeLots: " + nombreDeLots);
-      logVerbose("ticketsGagnants: " + ticketsGagnants);
-      logVerbose("ticketsGagnants[0]: " + ticketsGagnants[indexLot]);
-      logVerbose("ticketsGagnants[0].numeroDuLot: " + ticketsGagnants[indexLot].numeroDuLot);
-      logVerbose("ticketsGagnants[0].affichage: " + ticketsGagnants[indexLot].affichage);
-      var btn = document.getElementById('tirageButton');
-      btn.className = 'waves-effect waves-light btn red'
         console.log(data);
+          min = data.minTicket;
+          max = data.maxTicket;
+          ticketsGagnants = data.ticketsGagnants;
+          nombreDeLots = data.ticketsGagnants.length;
+          logVerbose("nombreDeLots: " + nombreDeLots);
+          logVerbose("ticketsGagnants: " + ticketsGagnants);
+          logVerbose("ticketsGagnants[0]: " + ticketsGagnants[indexLot]);
+          logVerbose("ticketsGagnants[0].numeroDuLot: " + ticketsGagnants[indexLot].numeroDuLot);
+          logVerbose("ticketsGagnants[0].affichage: " + ticketsGagnants[indexLot].affichage);
+          var btn = document.getElementById('tirageButton');
+          btn.className = 'waves-effect waves-light btn red'
         // Use the data in your site
       });
 }
