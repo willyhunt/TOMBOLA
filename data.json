@@ -1,1 +1,377 @@
-null
+{
+  "tirageData": {
+    "id": "recvZAICq2tq7TFgH",
+    "maxTicket": 16000,
+    "minTicket": 9000,
+    "ticketsGagnants": [
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 30,
+        "LOT (from Lot)": "Diamant",
+        "Numéro Ticket Gagnant": 11130,
+        "Numéro du lot": 1
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 11209,
+        "Numéro du lot": 22
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 10184,
+        "Numéro du lot": 3
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 500€",
+        "Numéro Ticket Gagnant": 12466,
+        "Numéro du lot": 18
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 30,
+        "LOT (from Lot)": "Diamant",
+        "Numéro Ticket Gagnant": 13232,
+        "Numéro du lot": 1
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 10207,
+        "Numéro du lot": 9
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 10983,
+        "Numéro du lot": 5
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 500€",
+        "Numéro Ticket Gagnant": 12882,
+        "Numéro du lot": 17
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 10160,
+        "Numéro du lot": 23
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 60,
+        "LOT (from Lot)": "Voitre",
+        "Numéro Ticket Gagnant": 13214,
+        "Numéro du lot": 2
+      },
+      {
+        "Affichage au tirage (from Lot)": null,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 0,
+        "LOT (from Lot)": "Bon de 50€",
+        "Numéro Ticket Gagnant": 10161,
+        "Numéro du lot": 16
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 12630,
+        "Numéro du lot": 9
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 7840,
+        "Numéro du lot": 7
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 12835,
+        "Numéro du lot": 6
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 7139,
+        "Numéro du lot": 8
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 13247,
+        "Numéro du lot": 10
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 500€",
+        "Numéro Ticket Gagnant": 10213,
+        "Numéro du lot": 17
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 13167,
+        "Numéro du lot": 10
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 500€",
+        "Numéro Ticket Gagnant": 11300,
+        "Numéro du lot": 18
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 10282,
+        "Numéro du lot": 12
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 60,
+        "LOT (from Lot)": "Voitre",
+        "Numéro Ticket Gagnant": 7806,
+        "Numéro du lot": 2
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 7528,
+        "Numéro du lot": 12
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 11017,
+        "Numéro du lot": 22
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 7483,
+        "Numéro du lot": 8
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 11086,
+        "Numéro du lot": 20
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 7221,
+        "Numéro du lot": 20
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 10951,
+        "Numéro du lot": 21
+      },
+      {
+        "Affichage au tirage (from Lot)": null,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 0,
+        "LOT (from Lot)": "Bon de 50€",
+        "Numéro Ticket Gagnant": 11250,
+        "Numéro du lot": 15
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 15,
+        "LOT (from Lot)": "Bon de 1000€",
+        "Numéro Ticket Gagnant": 7338,
+        "Numéro du lot": 14
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 7027,
+        "Numéro du lot": 5
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 7761,
+        "Numéro du lot": 19
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 20,
+        "LOT (from Lot)": "Velo electrique",
+        "Numéro Ticket Gagnant": 12846,
+        "Numéro du lot": 13
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 7642,
+        "Numéro du lot": 21
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 7495,
+        "Numéro du lot": 6
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 10517,
+        "Numéro du lot": 19
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 15,
+        "LOT (from Lot)": "Bon de 1000€",
+        "Numéro Ticket Gagnant": 12558,
+        "Numéro du lot": 14
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 7882,
+        "Numéro du lot": 4
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 20,
+        "LOT (from Lot)": "Velo electrique",
+        "Numéro Ticket Gagnant": 7775,
+        "Numéro du lot": 13
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 6955,
+        "Numéro du lot": 4
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 200€",
+        "Numéro Ticket Gagnant": 10546,
+        "Numéro du lot": 23
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 10548,
+        "Numéro du lot": 11
+      },
+      {
+        "Affichage au tirage (from Lot)": null,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 0,
+        "LOT (from Lot)": "Bon de 50€",
+        "Numéro Ticket Gagnant": 12944,
+        "Numéro du lot": 15
+      },
+      {
+        "Affichage au tirage (from Lot)": null,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 0,
+        "LOT (from Lot)": "Bon de 50€",
+        "Numéro Ticket Gagnant": 7155,
+        "Numéro du lot": 16
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recohSvzvv9sTmBO5",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 10643,
+        "Numéro du lot": 11
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 13159,
+        "Numéro du lot": 3
+      },
+      {
+        "Affichage au tirage (from Lot)": true,
+        "Commerçant (from Carnets)": "recQdtaJpqJ7flt8L",
+        "Durrée du Tirage (s) (from Lot)": 10,
+        "LOT (from Lot)": "Bon de 100€",
+        "Numéro Ticket Gagnant": 7040,
+        "Numéro du lot": 7
+      }
+    ]
+  }
+}
