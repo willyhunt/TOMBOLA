@@ -1,0 +1,15 @@
+name: Dispatch Workflow
+on:
+  repository_dispatch:
+    types: [airtable-trigger]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run a script
+        run: |
+          echo "This workflow was triggered by Airtable via webhook!"
