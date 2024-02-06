@@ -19,8 +19,7 @@ var indexLot = 0;
 var titlePrefix = "Tirage du lot N°";
 
 function init() {
-    logVerbose("tirageId retrieved: " + tirageId);
-        fetch('data.json')
+    fetch('data.json')
       .then(response => response.json())
       .then(data => {
 
