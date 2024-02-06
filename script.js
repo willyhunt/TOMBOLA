@@ -2,109 +2,51 @@ var isVerbose = true;
 
 var maxRetries = 500; // Maximum number of retries
 var retryCount = 0;  // Counter for retries
-var spreadSheetID;
-var maxRow;
-var minMaxRow;
-
-var currentRowTirage;
-var minMaxRowTickets;  
-
-var nombreDeLots = 0;
-var minRowTickets = 0;
-var maxRowTickets = 0;
-var data = [];
-
-
-var ticket = [
-    ticketsgagnant = 0,  
-    commercant = "",     
-    nomLot = "",    
-    numeroLot = 0,  
-    affichage = false,  
-    duree = 0
-]
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si les données existent dans le stockage local
-    const storedData = localStorage.getItem('data');
-
-    if (storedData) {
-        // Convertir la chaîne JSON en un objet JavaScript
-        const data = JSON.parse(storedData);
-        console.log(data);
-
-        // Utiliser les données comme nécessaire
-        // Par exemple, afficher des informations dans la console ou sur la page
-        console.log(`Nombre de Lots: ${data.nombreDeLots}`);
-        console.log(`Min Row Tickets: ${data.minRowTickets}`);
-        console.log(`Max Row Tickets: ${data.maxRowTickets}`);
-
-        // Afficher les tickets gagnants pour l'affichage (exemple simplifié)
-        data.ticketsGagnantsPourAffichage.forEach((ticket, index) => {
-            console.log(`Ticket ${index + 1}:`, ticket);
-            // Ajouter des éléments HTML pour chaque ticket si nécessaire
-            // Exemple:
-            // document.body.innerHTML += `<p>Ticket ${index + 1}: ${ticket.NuméroTicketGagnant}</p>`;
-        });
-
-        // Supprimer les données stockées pour éviter de les réutiliser accidentellement
-        localStorage.removeItem('data');
-    } else {
-        console.log("Aucune donnée trouvée dans le stockage local.");
-    }
-});
-
-/*
-
-function init() {
-    nombreDeLots = parseInt(getURLParameter('nombreDeLots'), 10); // Example: 'nombreDeLots=100'
-    minRowTickets = parseInt(getURLParameter('minRowTickets'), 10); // Example: 'minRowTickets=100'
-    maxRowTickets = parseInt(getURLParameter('maxRowTickets'), 10); // Example: 'maxRowTickets=100'
-    data = []; // Initialize the data array
-
-    for (let i = 0; i < nombreDeLots; i++) {
-        // Assuming each lot has a unique index in the URL parameters
-        let ticket = {
-            ticketsgagnant: parseInt(getURLParameter(`ticketsgagnants${i}`), 10),
-            commercant: getURLParameter(`commercants${i}`),
-            nomLot: getURLParameter(`nomLots${i}`),
-            numeroLot: parseInt(getURLParameter(`numeroLot${i}`), 10),
-            affichage: getURLParameter(`affichage${i}`) === 'true',
-            duree: parseInt(getURLParameter(`durees${i}`), 10)
-        };
-        data.push(ticket);
-    }
-}
-
-// Utility function to get URL parameters
-function getURLParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-}*/
-
-
-
-
 
 function logVerbose(message) {
     if (isVerbose) {
         console.log(message);
     }
 }
-  
-/*
-function SpinWheel(data) {
+
+var currentRowTirage;
+var minMaxRowTickets;    
+var min = 0;   
+var max = 0;
+var ticketsGagnants = [];
+var nombreDeLots = 0;
+var indexLot = 0;
+var titlePrefix = "Tirage du lot N°";
+
+function init() {
+    logVerbose("tirageId retrieved: " + tirageId);
+        fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+
+      min = data.minTicket;
+      max = data.maxTicket;
+      ticketsGagnants = data.ticketsGagnants;
+      nombreDeLots = data.ticketsGagnants.length;
+      logVerbose("nombreDeLots: " + nombreDeLots);
+      logVerbose("ticketsGagnants: " + ticketsGagnants);
+      logVerbose("ticketsGagnants[0]: " + ticketsGagnants[indexLot]);
+      logVerbose("ticketsGagnants[0].numeroDuLot: " + ticketsGagnants[indexLot].numeroDuLot);
+      logVerbose("ticketsGagnants[0].affichage: " + ticketsGagnants[indexLot].affichage);
+      var btn = document.getElementById('tirageButton');
+      btn.className = 'waves-effect waves-light btn red'
+        console.log(data);
+        // Use the data in your site
+      });
+}
+
+function SpinWheel(p_ticket) {
     var maxDisplayedDigits = 6;
-    var min = minRowTickets;
-    var max = maxRowTickets;
-    var winningNumber = data.ticketsgagnants;
-    var commercant = data.commercant;
-    var lotName = data.lotName;
-    var lotNumber = data.lotNumber;
-    var titlePrefix = "Tirage du lot N°";
-    var duree = data.duree*1000;
+    var winningNumber = p_ticket.numeroTicketGagnant;
+    var commercant = p_ticket.commercant;
+    var lotName = p_ticket.nomDuLot;
+    var lotNumber = p_ticket.numeroDuLot;
+    var duree = p_ticket.duree*1000;
     var referenceSpeed = 10*1000;
     var referenceIntervalIncreaseFactor = [1, 1.2, 1.4, 1.6, 1.8, 2];
     var referenceRandomBeforeStopNumbers = [8, 12 , 14, 16, 18, 22];
@@ -149,7 +91,7 @@ function SpinWheel(data) {
     //logVerbose("estimatedSlowingTime: " + estimatedSlowingTime);    
     /*logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
     logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
-    logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);     
+    logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);  */     
 
 
 
@@ -157,11 +99,11 @@ function SpinWheel(data) {
         var adaptedParam = [];
 
         for (var i = 0; i < p_finishedMask.length; i++) {
-            if( i < (p_finishedMask.length - p_size)) {
+          if( i < (p_finishedMask.length - p_size)) {
             adaptedParam[i] = 0;
-            } else {
+          } else {
             adaptedParam[i] = 1;
-            }
+          }
         } 
         logVerbose("adaptedParam: " + adaptedParam);
 
@@ -177,7 +119,7 @@ function SpinWheel(data) {
             var p_estimatedSlowingTime = 0;
 
             for (var i = p_minDigit; i < p_maxDigit; i++) {
-                p_estimatedSlowingTime += Math.max(p_referenceIntervalIncreaseFactor[i]*p_estimatedSlowingFactor, 1) * p_nbDigits * intervalInitial * (p_referenceRandomBeforeStopNumbers[i]*p_estimatedSlowingFactor + 5);
+              p_estimatedSlowingTime += Math.max(p_referenceIntervalIncreaseFactor[i]*p_estimatedSlowingFactor, 1) * p_nbDigits * intervalInitial * (p_referenceRandomBeforeStopNumbers[i]*p_estimatedSlowingFactor + 5);
             }
             
             logVerbose("p_estimatedSlowingTime: " + p_estimatedSlowingTime); 
@@ -186,8 +128,8 @@ function SpinWheel(data) {
             var difference = p_duree - p_estimatedSlowingTime;
             
             if(difference<0) {
-                p_estimatedSlowingFactor= 0.1;
-                return p_estimatedSlowingFactor;
+              p_estimatedSlowingFactor= 0.1;
+              return p_estimatedSlowingFactor;
             }
             if (Math.abs(difference) <= precisionRange) {
                 break; // Acceptable difference reached
@@ -229,42 +171,42 @@ function SpinWheel(data) {
     }
 
     function DisplayCurrentNumber(p_maskData) {
-        for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++){
+      for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++){
         document.getElementById("ticketNumberDigit"+i).textContent = p_maskData.currentNumber[i];
-        }
-        return p_maskData;
+      }
+      return p_maskData;
     }
 
     function CalculateNewCurrentNumber (p_maskData){1
-        
-        logVerbose("---IN CalculateNewCurrentNumber ---"); 
-        logVerbose("currentNumber: " + p_maskData.currentNumber); 
-        logVerbose("finishedMask: " + p_maskData.finishedMask); 
-        logVerbose("slowingMask: " + p_maskData.slowingMask);   
-        logVerbose("refreshingMask: " + p_maskData.refreshingMask);
-        for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++) {
+      
+      logVerbose("---IN CalculateNewCurrentNumber ---"); 
+      logVerbose("currentNumber: " + p_maskData.currentNumber); 
+      logVerbose("finishedMask: " + p_maskData.finishedMask); 
+      logVerbose("slowingMask: " + p_maskData.slowingMask);   
+      logVerbose("refreshingMask: " + p_maskData.refreshingMask);
+      for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++) {
         if (p_maskData.refreshingMask[i] && p_maskData.finishedMask[i] && p_maskData.slowingMask[i]){
-            p_maskData.currentNumber[i]=(p_maskData.currentNumber[i]+1)%10;
+          p_maskData.currentNumber[i]=(p_maskData.currentNumber[i]+1)%10;
         }
-        } 
-        logVerbose("NewNumber: " + p_maskData.currentNumber); 
-        return p_maskData.currentNumber;
+      } 
+      logVerbose("NewNumber: " + p_maskData.currentNumber); 
+      return p_maskData.currentNumber;
     }
 
     function CalculateRefreshingMask(p_maskData, p_iteration) {
-        var newMask = [0,0,0,0,0,0]; // Défini plus tard
-        var maskiteration = p_iteration%p_maskData.nbDigits+p_maskData.minDigit;
-        newMask[maskiteration] = 1; 
-        //logVerbose("maskiteration: " + maskiteration);
-        //logVerbose("newMask: " + newMask);       
-        return newMask;
+      var newMask = [0,0,0,0,0,0]; // Défini plus tard
+      var maskiteration = p_iteration%p_maskData.nbDigits+p_maskData.minDigit;
+      newMask[maskiteration] = 1; 
+      //logVerbose("maskiteration: " + maskiteration);
+      //logVerbose("newMask: " + newMask);       
+      return newMask;
     }
 
     function CalculateSlowingMask(p_maskData, p_iteration) {   
         for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++) {
             // Process only if this digit is not finished yet
             if (p_maskData.finishedMask[i]) {
-                if (p_maskData.refreshingMask[i]) {
+              if (p_maskData.refreshingMask[i]) {
                 var maskIterations = Math.floor(p_maskData.slowingIterationCount[i]%p_maskData.intervalIncreaseFactor[i]);    
                 logVerbose("maskIterations: " + maskIterations);       
                 logVerbose("p_maskData.intervalIncreaseFactor[i]: " + p_maskData.intervalIncreaseFactor[i]);       
@@ -272,14 +214,14 @@ function SpinWheel(data) {
                 p_maskData.slowingIterationCount[i]++;
         
                 if(maskIterations == 0){
-                    p_maskData.slowingMask[i] = 1;
-                    p_maskData.slowingCycleCount[i]++;
-                    logVerbose("p_maskData.slowingCycleCount[i]: " + p_maskData.slowingCycleCount[i]);
+                  p_maskData.slowingMask[i] = 1;
+                  p_maskData.slowingCycleCount[i]++;
+                  logVerbose("p_maskData.slowingCycleCount[i]: " + p_maskData.slowingCycleCount[i]);
                 } else {
-                    p_maskData.slowingMask[i] = 0;
+                  p_maskData.slowingMask[i] = 0;
                 }
-                }
-                return p_maskData;
+              }
+              return p_maskData;
             }
         }
         return p_maskData;
@@ -287,7 +229,7 @@ function SpinWheel(data) {
 
     function CalculateFinishedMask(p_maskData) {
         for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++) {
-            //logVerbose("------------ i :"+i);
+          //logVerbose("------------ i :"+i);
             if (p_maskData.finishedMask[i]) {
                 var digitWinningNumber = p_maskData.winningNumberInDigits[i];
                 var digitCurrentNumber = p_maskData.currentNumber[i];
@@ -315,7 +257,7 @@ function SpinWheel(data) {
         //logVerbose("refreshingMask: " + p_maskData.refreshingMask);
 
         if (accumulatedTime>duree*(1-slowingPercentageOfTotalDuration)){
-            startSlowing = true;
+          startSlowing = true;
         }
         logVerbose("accumulatedTime: "+accumulatedTime);
         //logVerbose("duree: "+duree);
@@ -351,7 +293,7 @@ function SpinWheel(data) {
     if (!Number.isInteger(winningNumber) || duree == 0 ) {
         document.getElementById("ticketNumberDigit0").textContent = winningNumber;
         if (Number.isInteger(winningNumber)){
-            document.getElementById("commercant").textContent = commercant;
+          document.getElementById("commercant").textContent = commercant;
         }
         logVerbose("Winning number is not an integer or time set to 0 ");
         logVerbose("winningNumber: " + winningNumber);
@@ -364,11 +306,11 @@ function SpinWheel(data) {
 }
 
 function effectuerTirage() {
-    logVerbose("EffectuerTirage called. Current Row: " + currentRowTirage);
+    logVerbose("EffectuerTirage called. indexLot: " + indexLot);
     var btn = document.getElementById('tirageButton');
     btn.className = 'waves-effect waves-light btn red disabled'; 
 
-    if (!currentRowTirage || currentRowTirage <= 1 || retryCount >= maxRetries) {
+    if (indexLot >= nombreDeLots || retryCount >= maxRetries) {
         alert("Tous les tirages ont été effectués ou limite de tentatives atteinte.");
         logVerbose("No more lots to draw or max retries reached.");
         return;
@@ -377,25 +319,20 @@ function effectuerTirage() {
     clearDisplayFields();
     logVerbose("Cleared the display fields.");
 
-    google.script.run
-        .withSuccessHandler(function(data) {
-            if (data) {
-            logVerbose("Lot name set: " + data.lotName);
-            retryCount = 0; // Reset retry count
-            SpinWheel(data);
-            currentRowTirage = data.currentRowNumber;
-            } else {                
-            retryCount++;
-            logVerbose("Retrying. Attempt: " + retryCount); 
-            logVerbose("Received null data from getTirageData");
-            setTimeout(effectuerTirage, 1000);
-            } 
-        })
-        .withFailureHandler(showError)
-        .getTirageData(spreadSheetID, currentRowTirage); 
+    while(ticketsGagnants[indexLot].affichage != true) {
+      
+      logVerbose("indexLot: "+indexLot);
+      logVerbose("affichage: "+ticketsGagnants[indexLot].affichage);
+      indexLot++;
+      if (indexLot > nombreDeLots) {
+        alert("Tous les tirages ont été effectués ou limite de tentatives atteinte.");
+        logVerbose("No more lots to draw or max retries reached.");
+        return;
+      }
+    }        
+    
+    SpinWheel(ticketsGagnants[indexLot]); 
 
-    currentRowTirage--;
-    logVerbose("Decremented currentRowTirage to: " + currentRowTirage);
 }
 
 function clearDisplayFields() {
@@ -418,7 +355,7 @@ function showError(error) {
 
 
 document.addEventListener('DOMContentLoaded', init);
-*/
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
