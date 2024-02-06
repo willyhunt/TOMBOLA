@@ -24,4 +24,4 @@ jobs:
           git add data.json
           git commit -m "Update data file"
           # Use the PAT for authentication in the git push command
-          git -c http.extraHeader="AUTHORIZATION: basic $(echo -n x-access-token:${MY_PAT} | base64)" push origin master
+          git -c http.extraHeader="AUTHORIZATION: basic $(echo -n x-access-token:${MY_PAT} | base64)" push origin main
