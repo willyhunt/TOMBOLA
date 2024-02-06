@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
             'Content-Type': 'application/json'
         },
         params: {
-            filterByFormula: encodeURIComponent(encodedFormula)
+            filterByFormula: encodeURIComponent(formula)
         }
     };
 
