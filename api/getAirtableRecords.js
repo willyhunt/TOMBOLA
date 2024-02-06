@@ -1,8 +1,7 @@
 const axios = require('axios');
-const tirageId = "recvZAICq2tq7TFgH";
-// Remplacer {ID Tirage (from Tirage)} par le nom exact du champ si nécessaire.
-const filterFormula2 = `FIND('${tirageId}', {ID Tirage (from Tirage)})`;
-const encodedFormula = encodeURIComponent(filterFormula2); 
+const tirageId = 'recvZAICq2tq7TFgH';
+const fieldName = 'IDTirage'; // Remplacez par le nom exact du champ
+const formula = `FIND('${tirageId}', {${fieldName}})`;
 
 
 module.exports = async (req, res) => {
