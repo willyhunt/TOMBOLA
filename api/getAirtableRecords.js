@@ -24,18 +24,23 @@ module.exports = async (req, res) => {
 
         const ticketsGagnants = records.map(record => ({
             affichage: record.fields["Affichage au tirage (from Lot)"] ? record.fields["Affichage au tirage (from Lot)"][0] : false,
-            commercant: record.fields["Commerçant (from Carnets)"],
+            commercant: record.fields["Nom du Commerçant"],
             duree: record.fields["Durrée du Tirage (s) (from Lot)"],
             nomDuLot: record.fields["LOT (from Lot)"],
             numeroDuLot: record.fields["Numéro du lot"],
             numeroTicketGagnant: record.fields["Numéro Ticket Gagnant"],
         }));
 
+        const ticketsGagnantsTries = ticketsGagnants.sort((a, b) => {
+            return b.numeroTicketGagnant - a.numeroTicketGagnant;
+        });
+        
+
         const tirageData = {
             id: tirageId,
             maxTicket: maxTicket,
             minTicket: minTicket,
-            ticketsGagnants: ticketsGagnants
+            ticketsGagnants: ticketsGagnantsTries
         };
 
         res.status(200).json({ tirageData });
