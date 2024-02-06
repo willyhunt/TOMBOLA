@@ -1,10 +1,14 @@
 const axios = require('axios');
+const tirageId = "recvZAICq2tq7TFgH";
 
 module.exports = async (req, res) => {
     const config = {
         headers: {
             'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`,
             'Content-Type': 'application/json'
+        },
+        params: {
+          filterByFormula: `FIND("${tirageId}", {Tirage})`
         }
     };
 
@@ -13,9 +17,6 @@ module.exports = async (req, res) => {
         res.status(200).json(response.data);
     } catch (error) {
         console.error('Error fetching Airtable data:', error);
-        console.log('AIRTABLE_API_KEY:', process.env.AIRTABLE_API_KEY);
-        console.log('AIRTABLE_BASE_ID:', process.env.AIRTABLE_BASE_ID);
-        console.log('AIRTABLE_TABLE_TIRAGES:', process.env.AIRTABLE_TABLE_TIRAGES);
         res.status(500).json({ error: 'Failed to fetch data from Airtable' });
     }
 };
