@@ -13,3 +13,13 @@ jobs:
       - name: Run a script
         run: |
           echo "This workflow was triggered by Airtable via webhook!"
+          
+      - name: Update Data File
+        run: |
+          echo '${{ toJSON(steps.your_step_id.outputs.tirageData) }}' > data.json
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add data.json
+          git commit -m "Update data file"
+          git push
+
