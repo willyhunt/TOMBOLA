@@ -352,6 +352,7 @@ function effectuerTirage() {
     }        
     
     SpinWheel(ticketsGagnants[indexLot]); 
+    indexLot++;
 
 }
 
