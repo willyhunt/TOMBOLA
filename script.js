@@ -21,9 +21,10 @@ var titlePrefix = "Tirage du lot N°";
 function init() {
     fetch('data.json')
       .then(response => response.json())
-      .then(data => {
+      .then(dataTirage => {
 
-        console.log(data);
+        console.log(dataTirage);
+        var data = dataTirage.tirageData;
           min = data.minTicket;
           max = data.maxTicket;
           ticketsGagnants = data.ticketsGagnants;
