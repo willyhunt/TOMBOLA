@@ -32,8 +32,9 @@ module.exports = async (req, res) => {
         }));
 
         const ticketsGagnantsTries = ticketsGagnants.sort((a, b) => {
-            return b.numeroTicketGagnant - a.numeroTicketGagnant;
+            return Number(b.numeroTicketGagnant) - Number(a.numeroTicketGagnant);
         });
+        
         
 
         const tirageData = {
