@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     try {
         console.log(`Requête envoyée à Airtable pour l'année: ${Annee}`);
         
-        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_COMMERCANTS)}?filterByFormula=FIND(%22${Annee}%22,{Année})`;
+        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_COMMERCANTS)}?filterByFormula=FIND(%22${Annee}%22,{ID (from Année)})`;
         const response = await axios.get(url, config);
         const records = response.data.records;
 
