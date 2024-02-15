@@ -22,7 +22,8 @@ module.exports = async (req, res) => {
     const data = {
         fields: {
             'Nombre de carnets': parseInt(NombreCarnets, 10),
-            'Email de commande': EmailCommande
+            'Email de commande': EmailCommande,
+            'Année': Annee
         }
     };
 
