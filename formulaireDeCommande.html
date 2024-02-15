@@ -5,35 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de Commande</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .container {
+            width: 50%;
+            max-width: 100%; /* Assure que la largeur ne dépasse pas celle de l'écran */
+        }
+        h2 {
+            font-size: 2rem; /* Ajustez selon vos besoins */
+            text-align: center; /* Centre le titre */
+        }
+        .input-field input, .input-field select {
+            width: 100%;
+            margin: 0 auto; /* Centrage */
+        }
+        .btn {
+            display: block;
+            margin: 0 auto; /* Centrage du bouton */
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Formulaire de Commande</h2>
-        <form id="formCommande">
-            <div class="input-field">
-                <input id="email_commande" type="email" name="email_commande" class="validate" required>
-                <label for="email_commande">Email de commande <span class="red-text">*</span></label>
-                <span class="helper-text" data-error="Ce champ est obligatoire"></span>
-            </div>
-            <div class="input-field">
-                <select id="commercant" name="commercant" required>
-                    <option value="" disabled selected>Choisissez un commerçant</option>
-                </select>
-                <label for="commercant">Commerçant <span class="red-text">*</span></label>
-            </div>
-            <div class="input-field">
-                <input id="nombre_carnets" type="number" name="nombre_carnets" min="1" max="1000" required>
-                <label for="nombre_carnets">Nombre de Carnets <span class="red-text">*</span></label>
-                <span class="helper-text" data-error="Doit être entre 1 et 1000"></span>
-            </div>
-            <button class="btn waves-effect waves-light" type="submit">Envoyer
-                <i class="material-icons right">send</i>
-            </button>
-        </form>
-    </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="scriptForm.js"></script>
-    </body>
-    </html>
+<div class="container">
+    <h2>Formulaire de Commande</h2>
+    <form id="formCommande">
+        <div class="input-field">
+            <input id="email_commande" type="email" name="email_commande" class="validate" required>
+            <label for="email_commande">Email de commande <span class="red-text">*</span></label>
+            <span class="helper-text" data-error="Ce champ est obligatoire"></span>
+        </div>
+        <div class="input-field">
+            <select id="commercant" name="commercant" required>
+                <option value="" disabled selected>Choisissez un commerçant</option>
+            </select>
+            <label for="commercant">Commerçant <span class="red-text">*</span></label>
+        </div>
+        <div class="input-field">
+            <input id="nombre_carnets" type="number" name="nombre_carnets" min="1" max="1000" required>
+            <label for="nombre_carnets">Nombre de Carnets <span class="red-text">*</span></label>
+            <span class="helper-text" data-error="Doit être entre 1 et 1000"></span>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">
+            <i class="material-icons left">shopping_cart</i>Commander
+        </button>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="scriptForm.js"></script>
+</body>
+</html>
