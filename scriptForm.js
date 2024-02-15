@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('commercant');
+    const form = document.getElementById('formCommande');
 
     // Initialiser le composant select de Materialize
     M.FormSelect.init(selectElement);
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return new URLSearchParams(window.location.search).get(name);
     }
 
+    // Fonction pour remplir le select des commercants
     async function fetchCommercants() {
         const annee = getURLParameter('Annee'); // Récupère l'année depuis l'URL
         if (!annee) {
@@ -28,52 +30,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fillCommercantSelect(commercants) {
-        const selectElement = document.getElementById('commercant');
-        // S'assurer de garder l'option par défaut en place
         selectElement.innerHTML = '<option value="" disabled selected>Choisissez un commerçant</option>';
-    
         commercants.forEach(commercant => {
-            const option = new Option(commercant, commercant); // Le texte et la valeur sont les mêmes ici
+            const option = new Option(commercant, commercant);
             selectElement.appendChild(option);
         });
-    
-        // Réinitialiser le composant select pour afficher les nouvelles options
         M.FormSelect.init(selectElement);
     }
-    
+
+    // Fonction pour valider et envoyer le formulaire
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        const emailCommande = document.getElementById('email_commande').value;
+        const commercant = selectElement.value;
+        const nombreCarnets = document.getElementById('nombre_carnets').value;
+        const annee = getURLParameter('Annee') || new Date().getFullYear();
+
+        if (!emailCommande || !commercant || !nombreCarnets) {
+            M.toast({html: 'Veuillez remplir tous les champs requis.'});
+            return;
+        }
+
+        const formData = {
+            EmailCommande: emailCommande,
+            Commercant: commercant,
+            NombreCarnets: nombreCarnets,
+            Annee: annee
+        };
+
+        try {
+            const response = await fetch('/api/setAirtableCommande', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) throw new Error('Erreur lors de l\'envoi des données.');
+
+            M.toast({html: 'Commande enregistrée avec succès!'});
+            form.reset(); // Optionnel: réinitialiser le formulaire après un envoi réussi
+        } catch (error) {
+            M.toast({html: `Erreur: ${error.message}`});
+        }
+    }
 
     fetchCommercants();
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('formCommande');
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Empêche l'envoi du formulaire pour la démonstration
-
-        // Validation de l'email
-        const email = document.getElementById('email_commande');
-        if (!email.value) {
-            M.toast({html: 'L\'email de commande est obligatoire.'});
-            return;
-        }
-
-        // Validation du commerçant
-        const commercant = document.getElementById('commercant');
-        if (commercant.value === "") {
-            M.toast({html: 'Veuillez choisir un commerçant.'});
-            return;
-        }
-
-        // Validation du nombre de carnets
-        const nombreCarnets = document.getElementById('nombre_carnets');
-        const carnetsValue = parseInt(nombreCarnets.value, 10);
-        if (isNaN(carnetsValue) || carnetsValue < 1 || carnetsValue > 1000) {
-            M.toast({html: 'Le nombre de carnets doit être compris entre 1 et 1000.'});
-            return;
-        }
-
-        // Si toutes les validations sont passées, vous pouvez procéder à l'envoi du formulaire
-        // form.submit(); // Décommentez pour activer l'envoi du formulaire
-    });
+    form.addEventListener('submit', handleSubmit);
 });
