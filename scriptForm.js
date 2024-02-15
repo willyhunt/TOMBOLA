@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const commercantID = commercantSelect.value;
         const commercantNom = commercantSelect.options[commercantSelect.selectedIndex].text;
         const nombreCarnets = document.getElementById('nombre_carnets').value;
+        const annee = getURLParameter('Annee');
         // Pas besoin de récupérer l'année si elle n'est pas affichée dans le récapitulatif
     
         // Validation simplifiée (pour exemple, votre implémentation peut varier)
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             EmailCommande: emailCommande,
             Commercant: commercantID, // Utiliser l'ID pour la requête mais stocker le nom pour l'affichage
             NombreCarnets: nombreCarnets,
-            // Annee: annee, si nécessaire
+            Annee: annee
         };
     
         try {
