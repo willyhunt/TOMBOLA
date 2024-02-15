@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Récapitulatif de la Commande</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Récapitulatif de la Commande</h2>
+        <p id="commandeRecap"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const details = JSON.parse(localStorage.getItem('commandeDetails'));
+            if(details) {
+                document.getElementById('commandeRecap').innerHTML = `
+                    <strong>Email de commande:</strong> ${details.emailCommande}<br>
+                    <strong>Commerçant:</strong> ${details.commercantNom}<br>
+                    <strong>Nombre de Carnets:</strong> ${details.nombreCarnets}
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

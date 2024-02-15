@@ -45,42 +45,55 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour valider et envoyer le formulaire avec l'ID du commerçant
     async function handleSubmit(event) {
         event.preventDefault();
-
+    
+        // Récupération des valeurs du formulaire
         const emailCommande = document.getElementById('email_commande').value;
-        const commercantID = selectElement.value; // Récupère l'ID du commerçant sélectionné
+        const commercantSelect = document.getElementById('commercant');
+        const commercantID = commercantSelect.value;
+        const commercantNom = commercantSelect.options[commercantSelect.selectedIndex].text;
         const nombreCarnets = document.getElementById('nombre_carnets').value;
-        const annee = getURLParameter('Annee');
-
-        console.log('Données du formulaire:', { emailCommande, commercantID, nombreCarnets, annee });
-
+        // Pas besoin de récupérer l'année si elle n'est pas affichée dans le récapitulatif
+    
+        // Validation simplifiée (pour exemple, votre implémentation peut varier)
         if (!emailCommande || !commercantID || !nombreCarnets) {
             M.toast({html: 'Veuillez remplir tous les champs requis.'});
             return;
         }
-
+    
         const formData = {
             EmailCommande: emailCommande,
-            Commercant: commercantID, // Poste l'ID du commerçant
+            Commercant: commercantID, // Utiliser l'ID pour la requête mais stocker le nom pour l'affichage
             NombreCarnets: nombreCarnets,
-            Annee: annee
+            // Annee: annee, si nécessaire
         };
-
+    
         try {
             const response = await fetch('/api/setAirtableCommande', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formData),
             });
-
-            if (!response.ok) throw new Error('Erreur lors de l\'envoi des données.');
-
-            M.toast({html: 'Commande enregistrée avec succès!'});
-            form.reset();
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Erreur lors de l'envoi des données: ${errorData.error || response.status}`);
+            }
+    
+            // Stocker les détails pour l'affichage sur la page de redirection
+            localStorage.setItem('commandeDetails', JSON.stringify({
+                emailCommande,
+                commercantNom, // Stocker le nom pour un affichage convivial
+                nombreCarnets,
+            }));
+    
+            // Redirection vers la page de récapitulatif
+            window.location.href = 'redirection.html';
         } catch (error) {
             console.error('Erreur lors de l\'envoi du formulaire:', error);
             M.toast({html: `Erreur: ${error.message}`});
         }
     }
+   
 
     fetchCommercants();
     form.addEventListener('submit', handleSubmit);
