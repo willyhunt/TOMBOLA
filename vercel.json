@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+      { "source": "/formulairedecommande", "destination": "/formulaireDeCommande.html" }
+    ]
+  }
+  

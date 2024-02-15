@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Commande</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Formulaire de Commande</h2>
+    <form action="/path-to-your-server-endpoint" method="POST">
+        <div class="input-field">
+            <input id="email_commande" type="email" name="email_commande" class="validate" required>
+            <label for="email_commande">Email de commande</label>
+        </div>
+        <div class="input-field">
+            <input id="commercant" type="text" name="commercant" required>
+            <label for="commercant">Commerçant</label>
+        </div>
+        <div class="input-field">
+            <input id="nombre_carnets" type="number" name="nombre_carnets" min="1" required>
+            <label for="nombre_carnets">Nombre de Carnets</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Envoyer
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
