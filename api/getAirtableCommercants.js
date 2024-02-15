@@ -30,14 +30,12 @@ module.exports = async (req, res) => {
         const response = await axios.get(url, config);
         const records = response.data.records;
 
-        // Traitement des données reçues
-        const Commercants = records.map(record => ({
-            nomDuCommercant: record.fields["Nom du commerce"] ? record.fields["Nom du commerce"] : null // Modification pour gérer correctement les noms des commerçants
-        }));
+        // Extraction des noms des commerçants dans une liste simple
+        const nomsDesCommercants = records.map(record => record.fields["Nom du commerce"] ? record.fields["Nom du commerce"] : null);
 
-        // Trier les commerçants par nom
-        const CommercantsTries = Commercants.sort((a, b) => a.nomDuCommercant.localeCompare(b.nomDuCommercant));
-
+        // Tri alphabétique des noms des commerçants
+        const CommercantsTries = nomsDesCommercants.sort((a, b) => a.localeCompare(b));
+        
         // Log de succès
         console.log('Données récupérées et traitées avec succès.');
 
