@@ -28,14 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fillCommercantSelect(commercants) {
+        const selectElement = document.getElementById('commercant');
+        // S'assurer de garder l'option par défaut en place
+        selectElement.innerHTML = '<option value="" disabled selected>Choisissez un commerçant</option>';
+    
         commercants.forEach(commercant => {
             const option = new Option(commercant, commercant); // Le texte et la valeur sont les mêmes ici
             selectElement.appendChild(option);
         });
-
+    
         // Réinitialiser le composant select pour afficher les nouvelles options
         M.FormSelect.init(selectElement);
     }
+    
 
     fetchCommercants();
 });
