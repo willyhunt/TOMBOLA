@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('commercant');
     const form = document.getElementById('formCommande');
 
+    console.log('Initialisation du formulaire...');
+
     // Initialiser le composant select de Materialize
     M.FormSelect.init(selectElement);
 
@@ -13,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour remplir le select des commercants
     async function fetchCommercants() {
         const annee = getURLParameter('Annee'); // Récupère l'année depuis l'URL
+        console.log(`Récupération des commerçants pour l'année: ${annee}`);
+
         if (!annee) {
             console.error('Annee est requis en paramètre de l\'URL.');
             return;
@@ -23,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!response.ok) throw new Error('Réponse réseau non ok');
 
             const data = await response.json();
+            console.log('Commerçants récupérés avec succès:', data.Commercants);
             fillCommercantSelect(data.Commercants);
         } catch (error) {
             console.error('Erreur lors de la récupération des commerçants:', error);
@@ -30,8 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fillCommercantSelect(commercants) {
+        console.log('Remplissage du select des commerçants...');
         selectElement.innerHTML = '<option value="" disabled selected>Choisissez un commerçant</option>';
         commercants.forEach(commercant => {
+            console.log(`Ajout du commerçant: ${commercant}`);
             const option = new Option(commercant, commercant);
             selectElement.appendChild(option);
         });
@@ -41,11 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour valider et envoyer le formulaire
     async function handleSubmit(event) {
         event.preventDefault();
+        console.log('Tentative de soumission du formulaire...');
 
         const emailCommande = document.getElementById('email_commande').value;
         const commercant = selectElement.value;
         const nombreCarnets = document.getElementById('nombre_carnets').value;
-        const annee = getURLParameter('Annee') || new Date().getFullYear();
+        const annee = getURLParameter('Annee');
+
+        console.log('Données du formulaire:', { emailCommande, commercant, nombreCarnets, annee });
 
         if (!emailCommande || !commercant || !nombreCarnets) {
             M.toast({html: 'Veuillez remplir tous les champs requis.'});
@@ -68,9 +78,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!response.ok) throw new Error('Erreur lors de l\'envoi des données.');
 
+            console.log('Commande enregistrée avec succès!');
             M.toast({html: 'Commande enregistrée avec succès!'});
-            form.reset(); // Optionnel: réinitialiser le formulaire après un envoi réussi
+            form.reset(); // Réinitialiser le formulaire après un envoi réussi
         } catch (error) {
+            console.error('Erreur lors de l\'envoi du formulaire:', error);
             M.toast({html: `Erreur: ${error.message}`});
         }
     }
