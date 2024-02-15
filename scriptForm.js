@@ -39,3 +39,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fetchCommercants();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('formCommande');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche l'envoi du formulaire pour la démonstration
+
+        // Validation de l'email
+        const email = document.getElementById('email_commande');
+        if (!email.value) {
+            M.toast({html: 'L\'email de commande est obligatoire.'});
+            return;
+        }
+
+        // Validation du commerçant
+        const commercant = document.getElementById('commercant');
+        if (commercant.value === "") {
+            M.toast({html: 'Veuillez choisir un commerçant.'});
+            return;
+        }
+
+        // Validation du nombre de carnets
+        const nombreCarnets = document.getElementById('nombre_carnets');
+        const carnetsValue = parseInt(nombreCarnets.value, 10);
+        if (isNaN(carnetsValue) || carnetsValue < 1 || carnetsValue > 1000) {
+            M.toast({html: 'Le nombre de carnets doit être compris entre 1 et 1000.'});
+            return;
+        }
+
+        // Si toutes les validations sont passées, vous pouvez procéder à l'envoi du formulaire
+        // form.submit(); // Décommentez pour activer l'envoi du formulaire
+    });
+});
