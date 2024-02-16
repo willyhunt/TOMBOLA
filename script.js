@@ -370,29 +370,15 @@ function effectuerTirage() {
     btn.className = 'waves-effect waves-light btn red disabled'; 
 
     if (indexLot >= nombreDeLots || retryCount >= maxRetries) {
-        alert("Tous les tirages ont été effectués ou limite de tentatives atteinte.");
-        logVerbose("No more lots to draw or max retries reached.");
+        alert("Tous les tirages ont été effectués");
         return;
     }
 
 
     clearDisplayFields();
-    logVerbose("Cleared the display fields.");
-
-    while(ticketsGagnants[indexLot].affichage != true) {
-      
-      logVerbose("indexLot: "+indexLot);
-      logVerbose("affichage: "+ticketsGagnants[indexLot].affichage);
-      indexLot++;
-      if (indexLot > nombreDeLots) {
-        alert("Tous les tirages ont été effectués ou limite de tentatives atteinte.");
-        logVerbose("No more lots to draw or max retries reached.");
-        return;
-      }
-    }        
+    logVerbose("Cleared the display fields.");      
     
     SpinWheel(ticketsGagnants[indexLot]); 
-    indexLot++;
 
 }
 
