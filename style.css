@@ -88,11 +88,17 @@ body {
     font-size: 36px;
 }
 
-#lotSelectContainer{
+
+#lotSelectContainer {
+    display: flex;
     justify-content: center;
-    align-items: center;
+    width: 100%; /* Adjust this as needed */
     margin-top: 40px; /* Marge au-dessus du div */
     margin-bottom: 40px; /* Marge en dessous du div */
-    width: 50%;
-    max-width: 100%;
+}
+
+/* Ensure the select element itself fills the container */
+#lotSelectContainer select {
+    width: 50%; /* Or whatever width you prefer */
+    margin: 0 auto; /* Automatically margin for left and right */
 }
