@@ -89,6 +89,10 @@ body {
 }
 
 #lotSelectContainer{
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px; /* Marge au-dessus du div */
+    margin-bottom: 40px; /* Marge en dessous du div */
     width: 50%;
     max-width: 100%;
 }
