@@ -124,15 +124,15 @@ function SpinWheel(p_ticket) {
 
     //var estimatedSlowingTime = CalculateEstimatedSlowingTime(maskData);
     
-    logVerbose("slowingFactor: " + slowingFactor);   
+    /*logVerbose("slowingFactor: " + slowingFactor);   
     logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
     logVerbose("randomBeforeStopNumbers: " + maskData.randomBeforeStopNumbers); 
     logVerbose("winningNumberInDigits: " + maskData.winningNumberInDigits);   
     logVerbose("nbDigits: " + maskData.nbDigits); 
     logVerbose("maxDigit: " + maskData.maxDigit);   
     logVerbose("minDigit: " + maskData.minDigit); 
-    //logVerbose("estimatedSlowingTime: " + estimatedSlowingTime);    
-    /*logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
+    logVerbose("estimatedSlowingTime: " + estimatedSlowingTime);    
+    logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
     logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);    
     logVerbose("intervalIncreaseFactor: " + maskData.intervalIncreaseFactor);  */     
 
@@ -148,7 +148,7 @@ function SpinWheel(p_ticket) {
             adaptedParam[i] = 1;
           }
         } 
-        logVerbose("adaptedParam: " + adaptedParam);
+        //logVerbose("adaptedParam: " + adaptedParam);
 
         return adaptedParam;
 
@@ -165,8 +165,8 @@ function SpinWheel(p_ticket) {
               p_estimatedSlowingTime += Math.max(p_referenceIntervalIncreaseFactor[i]*p_estimatedSlowingFactor, 1) * p_nbDigits * intervalInitial * (p_referenceRandomBeforeStopNumbers[i]*p_estimatedSlowingFactor + 5);
             }
             
-            logVerbose("p_estimatedSlowingTime: " + p_estimatedSlowingTime); 
-            logVerbose("p_estimatedSlowingFactor: " + p_estimatedSlowingFactor);   
+            //logVerbose("p_estimatedSlowingTime: " + p_estimatedSlowingTime); 
+            //logVerbose("p_estimatedSlowingFactor: " + p_estimatedSlowingFactor);   
 
             var difference = p_duree - p_estimatedSlowingTime;
             
@@ -191,7 +191,7 @@ function SpinWheel(p_ticket) {
         for (var i = 0; i < p_param.length; i++) {
             adaptedParam[i] = p_param[i] * p_slowingFactor;
         } 
-        logVerbose("adaptedParam: " + adaptedParam);
+        //logVerbose("adaptedParam: " + adaptedParam);
 
         return adaptedParam;
     }
@@ -222,17 +222,17 @@ function SpinWheel(p_ticket) {
 
     function CalculateNewCurrentNumber (p_maskData){1
       
-      logVerbose("---IN CalculateNewCurrentNumber ---"); 
+      /*logVerbose("---IN CalculateNewCurrentNumber ---"); 
       logVerbose("currentNumber: " + p_maskData.currentNumber); 
       logVerbose("finishedMask: " + p_maskData.finishedMask); 
       logVerbose("slowingMask: " + p_maskData.slowingMask);   
-      logVerbose("refreshingMask: " + p_maskData.refreshingMask);
+      logVerbose("refreshingMask: " + p_maskData.refreshingMask);*/
       for(var i=p_maskData.minDigit ; i<p_maskData.maxDigit ; i++) {
         if (p_maskData.refreshingMask[i] && p_maskData.finishedMask[i] && p_maskData.slowingMask[i]){
           p_maskData.currentNumber[i]=(p_maskData.currentNumber[i]+1)%10;
         }
       } 
-      logVerbose("NewNumber: " + p_maskData.currentNumber); 
+      //logVerbose("NewNumber: " + p_maskData.currentNumber); 
       return p_maskData.currentNumber;
     }
 
@@ -251,15 +251,15 @@ function SpinWheel(p_ticket) {
             if (p_maskData.finishedMask[i]) {
               if (p_maskData.refreshingMask[i]) {
                 var maskIterations = Math.floor(p_maskData.slowingIterationCount[i]%p_maskData.intervalIncreaseFactor[i]);    
-                logVerbose("maskIterations: " + maskIterations);       
+                /*logVerbose("maskIterations: " + maskIterations);       
                 logVerbose("p_maskData.intervalIncreaseFactor[i]: " + p_maskData.intervalIncreaseFactor[i]);       
-                logVerbose(" p_maskData.slowingIterationCount[i]: " +  p_maskData.slowingIterationCount[i]);   
+                logVerbose(" p_maskData.slowingIterationCount[i]: " +  p_maskData.slowingIterationCount[i]);   */
                 p_maskData.slowingIterationCount[i]++;
         
                 if(maskIterations == 0){
                   p_maskData.slowingMask[i] = 1;
                   p_maskData.slowingCycleCount[i]++;
-                  logVerbose("p_maskData.slowingCycleCount[i]: " + p_maskData.slowingCycleCount[i]);
+                  //logVerbose("p_maskData.slowingCycleCount[i]: " + p_maskData.slowingCycleCount[i]);
                 } else {
                   p_maskData.slowingMask[i] = 0;
                 }
@@ -309,7 +309,7 @@ function SpinWheel(p_ticket) {
         if (accumulatedTime>duree*(1-slowingPercentageOfTotalDuration)){
           startSlowing = true;
         }
-        logVerbose("accumulatedTime: "+accumulatedTime);
+        //logVerbose("accumulatedTime: "+accumulatedTime);
         //logVerbose("duree: "+duree);
         //logVerbose("startSlowing: "+startSlowing);
 
@@ -318,7 +318,7 @@ function SpinWheel(p_ticket) {
             p_maskData = CalculateFinishedMask(p_maskData);
             p_maskData = CalculateSlowingMask(p_maskData, iteration);
             accumulatedSlowingTime+=interval;
-            logVerbose("accumulatedSlowingTime: "+accumulatedSlowingTime);
+           // logVerbose("accumulatedSlowingTime: "+accumulatedSlowingTime);
         }
         
         p_maskData.currentNumber = CalculateNewCurrentNumber(p_maskData);        
