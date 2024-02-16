@@ -60,11 +60,11 @@ async function init() {
         ticketsGagnants.forEach((ticket, index) => {
             if(ticket.affichage) {
                 const option = document.createElement('option');
-                option.value = ticket.numeroDuLot;
+                option.value = index;
                 option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
                 lotSelect.prepend(option);
-                if(ticket.numeroDuLot>maxIndex){
-                    maxIndex = ticket.numeroDuLot; // Mise à jour du dernier index
+                if(index>maxIndex){
+                    maxIndex = index; // Mise à jour du dernier index
                 }
             }
         });
@@ -357,30 +357,30 @@ function SpinWheel(p_ticket) {
 
 function effectuerTirage() {
     document.getElementById('lotSelectContainer').style.display = 'none';
-    const selectedLotIndex = document.getElementById('lotSelect').value;
-    if(selectedLotIndex === "") {
+    const selectedLotIndex = parseInt(document.getElementById('lotSelect').value, 10);
+
+    // Vérification et ajustement basé sur la valeur sélectionnée
+    if (isNaN(selectedLotIndex)) {
         alert("Veuillez sélectionner un lot avant de lancer le tirage.");
         return;
     }
 
-    indexLot = parseInt(selectedLotIndex, 10); // Assurez-vous que indexLot utilise bien l'index sélectionné
-    // Le reste de la fonction reste inchangé
-    logVerbose("EffectuerTirage called. indexLot: " + indexLot);
-    var btn = document.getElementById('tirageButton');
-    btn.className = 'waves-effect waves-light btn red disabled'; 
-
-    if (indexLot >= nombreDeLots || retryCount >= maxRetries) {
-        alert("Tous les tirages ont été effectués");
+    // Utiliser directement l'index pour accéder au lot correspondant
+    const selectedLot = ticketsGagnants[selectedLotIndex];
+    if (!selectedLot) {
+        console.error('Lot sélectionné non trouvé.');
         return;
     }
 
+    // Logique de tirage en utilisant le lot sélectionné
+    logVerbose("EffectuerTirage called. Selected lot: " + selectedLot.numeroDuLot);
+    var btn = document.getElementById('tirageButton');
+    btn.className = 'waves-effect waves-light btn red disabled';
 
     clearDisplayFields();
-    logVerbose("Cleared the display fields.");      
-    
-    SpinWheel(ticketsGagnants[indexLot]); 
-
+    SpinWheel(selectedLot);
 }
+
 
 function clearDisplayFields() {
     document.getElementById("commercant").textContent = "";
