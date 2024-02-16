@@ -56,20 +56,22 @@ async function init() {
 
         // Remplir le champ select avec les lots disponibles dont l'affichage est autorisé
         const lotSelect = document.getElementById('lotSelect');
-        let lastIndex = null; // Pour garder une trace du dernier index ajouté
+        let maxIndex = -1; // Pour garder une trace du dernier index ajouté
         ticketsGagnants.forEach((ticket, index) => {
             if(ticket.affichage) {
                 const option = document.createElement('option');
                 option.value = ticket.numeroDuLot;
                 option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
                 lotSelect.prepend(option);
-                lastIndex = ticket.numeroDuLot; // Mise à jour du dernier index
+                if(ticket.numeroDuLot>maxIndex){
+                    maxIndex = ticket.numeroDuLot; // Mise à jour du dernier index
+                }
             }
         });
 
         // Définir la valeur du select sur l'index du dernier lot ajouté
-        if (lastIndex !== null) {
-            lotSelect.value = lastIndex;
+        if (maxIndex !== -1) {
+            lotSelect.value = maxIndex;
         }
 
 
