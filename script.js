@@ -53,6 +53,16 @@ async function init() {
         } else {
             console.error('Erreur lors de la récupération des données', response);
         }
+
+        // Remplir le champ select avec les lots disponibles
+        const lotSelect = document.getElementById('lotSelect');
+        ticketsGagnants.forEach((ticket, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
+            lotSelect.appendChild(option);
+        });
+
     } catch (error) {
         console.error('Erreur lors de la récupération des données', error);
     }
@@ -326,6 +336,14 @@ function SpinWheel(p_ticket) {
 }
 
 function effectuerTirage() {
+    const selectedLotIndex = document.getElementById('lotSelect').value;
+    if(selectedLotIndex === "") {
+        alert("Veuillez sélectionner un lot avant de lancer le tirage.");
+        return;
+    }
+
+    indexLot = parseInt(selectedLotIndex, 10); // Assurez-vous que indexLot utilise bien l'index sélectionné
+    // Le reste de la fonction reste inchangé
     logVerbose("EffectuerTirage called. indexLot: " + indexLot);
     var btn = document.getElementById('tirageButton');
     btn.className = 'waves-effect waves-light btn red disabled'; 
@@ -336,7 +354,7 @@ function effectuerTirage() {
         return;
     }
 
-    
+
     clearDisplayFields();
     logVerbose("Cleared the display fields.");
 
