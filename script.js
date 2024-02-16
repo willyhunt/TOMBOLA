@@ -336,6 +336,7 @@ function effectuerTirage() {
         return;
     }
 
+    
     clearDisplayFields();
     logVerbose("Cleared the display fields.");
 
