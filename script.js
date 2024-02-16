@@ -54,24 +54,27 @@ async function init() {
             console.error('Erreur lors de la récupération des données', response);
         }
 
-        // Remplir le champ select avec les lots disponibles dont l'affichage est autorisé
         const lotSelect = document.getElementById('lotSelect');
         let lastIndex = null; // Pour garder une trace du dernier index ajouté
-        ticketsGagnants.forEach((ticket, index) => {
-            if(ticket.affichage) {
+        
+        // Parcourir ticketsGagnants dans le sens inverse
+        for (let index = ticketsGagnants.length - 1; index >= 0; index--) {
+            let ticket = ticketsGagnants[index];
+            if(ticket.affichage) { // Vérifier si le lot doit être affiché
                 const option = document.createElement('option');
-                option.value = ticket.numeroDuLot;
+                option.value = index;
                 option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
-                lotSelect.appendChild(option);
-                lastIndex = ticket.numeroDuLot; // Mise à jour du dernier index
+                lotSelect.prepend(option); // Utiliser prepend pour ajouter l'option au début du select
+                if (lastIndex === null) { // Mettre à jour lastIndex avec le premier index valide rencontré
+                    lastIndex = index;
+                }
             }
-        });
-
+        }
+        
         // Définir la valeur du select sur l'index du dernier lot ajouté
         if (lastIndex !== null) {
             lotSelect.value = lastIndex;
-        }
-
+        }      
 
 
     } catch (error) {
