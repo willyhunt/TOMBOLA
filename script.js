@@ -44,10 +44,10 @@ async function init() {
             ticketsGagnants = data.ticketsGagnants;
             nombreDeLots = data.ticketsGagnants.length;
             logVerbose("nombreDeLots: " + nombreDeLots);
-            logVerbose("ticketsGagnants: " + ticketsGagnants);
+            /*logVerbose("ticketsGagnants: " + ticketsGagnants);
             logVerbose("ticketsGagnants[0]: " + ticketsGagnants[indexLot]);
             logVerbose("ticketsGagnants[0].numeroDuLot: " + ticketsGagnants[indexLot].numeroDuLot);
-            logVerbose("ticketsGagnants[0].affichage: " + ticketsGagnants[indexLot].affichage);
+            logVerbose("ticketsGagnants[0].affichage: " + ticketsGagnants[indexLot].affichage);*/
             var btn = document.getElementById('tirageButton');
             btn.className = 'waves-effect waves-light btn red';
         } else {
@@ -56,22 +56,22 @@ async function init() {
 
         // Remplir le champ select avec les lots disponibles dont l'affichage est autorisé
         const lotSelect = document.getElementById('lotSelect');
-        let maxIndex = -1; // Pour garder une trace du dernier index ajouté
+        let minIndex = 10000; // Pour garder une trace du dernier index ajouté
         ticketsGagnants.forEach((ticket, index) => {
             if(ticket.affichage) {
                 const option = document.createElement('option');
                 option.value = index;
                 option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
                 lotSelect.prepend(option);
-                if(index>maxIndex){
-                    maxIndex = index; // Mise à jour du dernier index
+                if(index < minIndex){
+                    minIndex = index; 
                 }
             }
         });
 
         // Définir la valeur du select sur l'index du dernier lot ajouté
-        if (maxIndex !== -1) {
-            lotSelect.value = maxIndex;
+        if (minIndex !== 10000) {
+            lotSelect.value = minIndex;
         }
 
 
@@ -297,6 +297,8 @@ function SpinWheel(p_ticket) {
         const lotSelect = document.getElementById('lotSelect');
         if (lotSelect.selectedIndex > 0) { // Vérifier s'il y a un lot précédent
             lotSelect.selectedIndex--; // Sélectionner le lot précédent
+        } else {
+            lotSelect.innerHTML = '';
         }
     }
     
@@ -356,12 +358,11 @@ function SpinWheel(p_ticket) {
 }
 
 function effectuerTirage() {
-    document.getElementById('lotSelectContainer').style.display = 'none';
     const selectedLotIndex = parseInt(document.getElementById('lotSelect').value, 10);
 
     // Vérification et ajustement basé sur la valeur sélectionnée
     if (isNaN(selectedLotIndex)) {
-        alert("Veuillez sélectionner un lot avant de lancer le tirage.");
+        alert("Tirage terminé tout les lots ont été tirés");
         return;
     }
 
@@ -371,6 +372,7 @@ function effectuerTirage() {
         console.error('Lot sélectionné non trouvé.');
         return;
     }
+    document.getElementById('lotSelectContainer').style.display = 'none';
 
     // Logique de tirage en utilisant le lot sélectionné
     logVerbose("EffectuerTirage called. Selected lot: " + selectedLot.numeroDuLot);
