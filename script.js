@@ -60,10 +60,10 @@ async function init() {
         ticketsGagnants.forEach((ticket, index) => {
             if(ticket.affichage) {
                 const option = document.createElement('option');
-                option.value = index;
+                option.value = ticket.numeroDuLot;
                 option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
                 lotSelect.appendChild(option);
-                lastIndex = index; // Mise à jour du dernier index
+                lastIndex = ticket.numeroDuLot; // Mise à jour du dernier index
             }
         });
 
