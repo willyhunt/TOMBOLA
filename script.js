@@ -64,7 +64,7 @@ async function init() {
                 const option = document.createElement('option');
                 option.value = index;
                 option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
-                lotSelect.prepend(option); // Utiliser prepend pour ajouter l'option au début du select
+                lotSelect.appendChild(option); // Utiliser prepend pour ajouter l'option au début du select
                 if (lastIndex === null) { // Mettre à jour lastIndex avec le premier index valide rencontré
                     lastIndex = index;
                 }
@@ -74,7 +74,8 @@ async function init() {
         // Définir la valeur du select sur l'index du dernier lot ajouté
         if (lastIndex !== null) {
             lotSelect.value = lastIndex;
-        }      
+        }
+        
 
 
     } catch (error) {
