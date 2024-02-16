@@ -54,14 +54,25 @@ async function init() {
             console.error('Erreur lors de la récupération des données', response);
         }
 
-        // Remplir le champ select avec les lots disponibles
+        // Remplir le champ select avec les lots disponibles dont l'affichage est autorisé
         const lotSelect = document.getElementById('lotSelect');
+        let lastIndex = null; // Pour garder une trace du dernier index ajouté
         ticketsGagnants.forEach((ticket, index) => {
-            const option = document.createElement('option');
-            option.value = index;
-            option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
-            lotSelect.appendChild(option);
+            if(ticket.affichage) {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
+                lotSelect.appendChild(option);
+                lastIndex = index; // Mise à jour du dernier index
+            }
         });
+
+        // Définir la valeur du select sur l'index du dernier lot ajouté
+        if (lastIndex !== null) {
+            lotSelect.value = lastIndex;
+        }
+
+
 
     } catch (error) {
         console.error('Erreur lors de la récupération des données', error);
@@ -276,10 +287,17 @@ function SpinWheel(p_ticket) {
         return p_maskData;
     }
 
-    function ActivateDrawButton() {          
-            var btn = document.getElementById('tirageButton');
-            btn.className = 'waves-effect waves-light btn red';
+    function ActivateDrawButton() {
+        var btn = document.getElementById('tirageButton');
+        btn.className = 'waves-effect waves-light btn red';
+        // Décrémenter la sélection du lot dans le select si possible
+        document.getElementById('lotSelectContainer').style.display = ''; 
+        const lotSelect = document.getElementById('lotSelect');
+        if (lotSelect.selectedIndex > 0) { // Vérifier s'il y a un lot précédent
+            lotSelect.selectedIndex--; // Sélectionner le lot précédent
+        }
     }
+    
 
     function UpdateNumbers(p_maskData) {
         //logVerbose("currentNumber: " + p_maskData.currentNumber);
@@ -336,6 +354,7 @@ function SpinWheel(p_ticket) {
 }
 
 function effectuerTirage() {
+    document.getElementById('lotSelectContainer').style.display = 'none';
     const selectedLotIndex = document.getElementById('lotSelect').value;
     if(selectedLotIndex === "") {
         alert("Veuillez sélectionner un lot avant de lancer le tirage.");
