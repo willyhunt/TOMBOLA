@@ -306,6 +306,16 @@ function SpinWheel(p_ticket) {
         // Clear existing options
         lotSelect.innerHTML = '<option value="" disabled selected>Choisissez le lot à tirer</option>';
         
+        // Logic to add new options based on updated criteria
+        ticketsGagnants.forEach((ticket, index) => {
+            if(ticket.affichage) {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
+                lotSelect.appendChild(option);
+            }
+        });
+    
         // Reinitialize Materialize select to apply styling to new options
         M.FormSelect.init(document.querySelectorAll('select'));
     
