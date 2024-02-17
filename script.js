@@ -300,42 +300,42 @@ function SpinWheel(p_ticket) {
     
     function updateLotSelectOptions() {
         const lotSelect = document.getElementById('lotSelect');
-        // Save the current selection index
-        const prevSelectedIndex = lotSelect.selectedIndex;
-        logVerbose("prevSelectedIndex: " + prevSelectedIndex);
+        // Save the current selection value (if you have a unique identifier, this approach is more reliable)
+        const prevSelectedValue = lotSelect.value;
     
         // Clear existing options
         lotSelect.innerHTML = '<option value="" disabled selected>Choisissez le lot à tirer</option>';
-        
+    
         // Logic to add new options based on updated criteria
         ticketsGagnants.forEach((ticket, index) => {
-            if(ticket.affichage) {
+            if (ticket.affichage) {
                 const option = document.createElement('option');
-                option.value = index;
+                option.value = index;  // Assuming index is used as value; adjust if using unique identifiers
                 option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
-                lotSelect.prepend(option);
+                lotSelect.appendChild(option);
             }
         });
     
         // Reinitialize Materialize select to apply styling to new options
         M.FormSelect.init(document.querySelectorAll('select'));
     
-        // Adjust the selection based on the previous state
-        if (prevSelectedIndex > 0 && prevSelectedIndex < lotSelect.options.length) {
-            // Attempt to decrement the selection, if possible
-            lotSelect.selectedIndex = Math.min(prevSelectedIndex, lotSelect.options.length - 1);
-            logVerbose("lotSelect.selectedIndex: " + lotSelect.selectedIndex);
-        } else {
-            // If there was no previous selection or it's not applicable, default to the first option
-            lotSelect.selectedIndex = 0;
+        // Try to find and select the option that matches the previous selection by value
+        // If using unique identifiers for values, this method allows for more precise matching
+        Array.from(lotSelect.options).forEach((option, index) => {
+            if (option.value === prevSelectedValue) {
+                lotSelect.selectedIndex = index;
+            }
+        });
+    
+        // If the previous selection cannot be matched, attempt to decrement if possible
+        if (lotSelect.selectedIndex === -1 || lotSelect.selectedIndex === 0) {
+            lotSelect.selectedIndex = (prevSelectedValue > 0 && lotSelect.options.length > 1) ? 1 : 0;
         }
     
         // Reinitialize Materialize select again to reflect the new selection
         M.FormSelect.init(document.querySelectorAll('select'));
     }
-    
-
-    
+        
 
     function UpdateNumbers(p_maskData) {
         //logVerbose("currentNumber: " + p_maskData.currentNumber);
