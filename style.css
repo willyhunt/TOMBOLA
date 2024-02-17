@@ -90,8 +90,8 @@ body {
 
 
 #lotSelectContainer {
-   /* display: flex;
-    justify-content: center;*/
+    display: flex;
+    justify-content: center;
     width: 100%; 
     margin-top: 40px; 
     margin-bottom: 40px; 
