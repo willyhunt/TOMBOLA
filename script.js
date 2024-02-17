@@ -306,11 +306,7 @@ function SpinWheel(p_ticket) {
         if (selectedIndex > 0) {
             // Select the previous item
             lotSelect.selectedIndex = selectedIndex - 1;
-        } else {
-            // Optionally, handle the case where there's no previous item
-            // For example, disable the draw button if this was the first lot
-            lotSelect.innerHTML = '';
-        }
+        } 
     
         // Update Materialize select to reflect changes
         M.FormSelect.init(lotSelect);
