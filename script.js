@@ -302,13 +302,14 @@ function SpinWheel(p_ticket) {
         var lotSelect = document.getElementById('lotSelect');
         var selectedIndex = lotSelect.selectedIndex;
     
-        // Check if the next option exists
-        if (selectedIndex < lotSelect.options.length - 1) {
-            // Select the next item
-            lotSelect.selectedIndex = selectedIndex + 1;
+        // Check if the previous option exists
+        if (selectedIndex > 0) {
+            // Select the previous item
+            lotSelect.selectedIndex = selectedIndex - 1;
         } else {
-            // Optionally, handle the case where there's no next item
-            // For example, disable the draw button if this was the last lot
+            // Optionally, handle the case where there's no previous item
+            // For example, disable the draw button if this was the first lot
+            lotSelect.innerHTML = '';
             var btn = document.getElementById('tirageButton');
             btn.className = 'waves-effect waves-light btn red disabled';
             btn.onclick = null; // Remove the click handler to prevent further draws
@@ -317,7 +318,7 @@ function SpinWheel(p_ticket) {
         // Update Materialize select to reflect changes
         M.FormSelect.init(lotSelect);
     }
-        
+    
 
     function UpdateNumbers(p_maskData) {
         //logVerbose("currentNumber: " + p_maskData.currentNumber);
