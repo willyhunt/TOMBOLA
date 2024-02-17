@@ -306,7 +306,9 @@ function SpinWheel(p_ticket) {
         if (selectedIndex > 0) {
             // Select the previous item
             lotSelect.selectedIndex = selectedIndex - 1;
-        } 
+        } else {
+            lotSelect.value = ""; // This will select the disabled option as it is the only one with an empty value
+        }
     
         // Update Materialize select to reflect changes
         M.FormSelect.init(lotSelect);
