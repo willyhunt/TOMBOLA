@@ -106,4 +106,5 @@ body {
 #lotSelectContainer .select-dropdown {
     color: white !important;
     font-weight: bold !important;
+    text-align: center !important;
 }
