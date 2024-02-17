@@ -312,7 +312,7 @@ function SpinWheel(p_ticket) {
                 const option = document.createElement('option');
                 option.value = index;
                 option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
-                lotSelect.appendChild(option);
+                lotSelect.prepend(option);
             }
         });
     
