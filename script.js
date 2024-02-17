@@ -299,41 +299,23 @@ function SpinWheel(p_ticket) {
     }
     
     function updateLotSelectOptions() {
-        const lotSelect = document.getElementById('lotSelect');
-        // Save the current selection value (if you have a unique identifier, this approach is more reliable)
-        const prevSelectedValue = lotSelect.value;
+        var lotSelect = document.getElementById('lotSelect');
+        var selectedIndex = lotSelect.selectedIndex;
     
-        // Clear existing options
-        lotSelect.innerHTML = '<option value="" disabled selected>Choisissez le lot à tirer</option>';
-    
-        // Logic to add new options based on updated criteria
-        ticketsGagnants.forEach((ticket, index) => {
-            if (ticket.affichage) {
-                const option = document.createElement('option');
-                option.value = index;  // Assuming index is used as value; adjust if using unique identifiers
-                option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
-                lotSelect.appendChild(option);
-            }
-        });
-    
-        // Reinitialize Materialize select to apply styling to new options
-        M.FormSelect.init(document.querySelectorAll('select'));
-    
-        // Try to find and select the option that matches the previous selection by value
-        // If using unique identifiers for values, this method allows for more precise matching
-        Array.from(lotSelect.options).forEach((option, index) => {
-            if (option.value === prevSelectedValue) {
-                lotSelect.selectedIndex = index;
-            }
-        });
-    
-        // If the previous selection cannot be matched, attempt to decrement if possible
-        if (lotSelect.selectedIndex === -1 || lotSelect.selectedIndex === 0) {
-            lotSelect.selectedIndex = (prevSelectedValue > 0 && lotSelect.options.length > 1) ? 1 : 0;
+        // Check if the next option exists
+        if (selectedIndex < lotSelect.options.length - 1) {
+            // Select the next item
+            lotSelect.selectedIndex = selectedIndex + 1;
+        } else {
+            // Optionally, handle the case where there's no next item
+            // For example, disable the draw button if this was the last lot
+            var btn = document.getElementById('tirageButton');
+            btn.className = 'waves-effect waves-light btn red disabled';
+            btn.onclick = null; // Remove the click handler to prevent further draws
         }
     
-        // Reinitialize Materialize select again to reflect the new selection
-        M.FormSelect.init(document.querySelectorAll('select'));
+        // Update Materialize select to reflect changes
+        M.FormSelect.init(lotSelect);
     }
         
 
