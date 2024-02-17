@@ -310,9 +310,6 @@ function SpinWheel(p_ticket) {
             // Optionally, handle the case where there's no previous item
             // For example, disable the draw button if this was the first lot
             lotSelect.innerHTML = '';
-            var btn = document.getElementById('tirageButton');
-            btn.className = 'waves-effect waves-light btn red disabled';
-            btn.onclick = null; // Remove the click handler to prevent further draws
         }
     
         // Update Materialize select to reflect changes
