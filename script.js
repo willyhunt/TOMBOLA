@@ -299,23 +299,29 @@ function SpinWheel(p_ticket) {
     }
     
     function updateLotSelectOptions() {
-        // Clear existing options
         const lotSelect = document.getElementById('lotSelect');
+        // Save the current selection index
+        const prevSelectedIndex = lotSelect.selectedIndex;
+    
+        // Clear existing options
         lotSelect.innerHTML = '<option value="" disabled selected>Choisissez le lot à tirer</option>';
         
-        // Logic to add new options based on updated criteria
-        ticketsGagnants.forEach((ticket, index) => {
-            if(ticket.affichage) {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
-                lotSelect.appendChild(option); // Use appendChild to add options at the end
-            }
-        });
-
         // Reinitialize Materialize select to apply styling to new options
         M.FormSelect.init(document.querySelectorAll('select'));
+    
+        // Adjust the selection based on the previous state
+        if (prevSelectedIndex > 0 && prevSelectedIndex < lotSelect.options.length) {
+            // Attempt to decrement the selection, if possible
+            lotSelect.selectedIndex = Math.min(prevSelectedIndex, lotSelect.options.length - 1);
+        } else {
+            // If there was no previous selection or it's not applicable, default to the first option
+            lotSelect.selectedIndex = 0;
+        }
+    
+        // Reinitialize Materialize select again to reflect the new selection
+        M.FormSelect.init(document.querySelectorAll('select'));
     }
+    
 
     
 
