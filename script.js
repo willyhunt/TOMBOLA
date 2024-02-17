@@ -302,6 +302,7 @@ function SpinWheel(p_ticket) {
         const lotSelect = document.getElementById('lotSelect');
         // Save the current selection index
         const prevSelectedIndex = lotSelect.selectedIndex;
+        logVerbose("prevSelectedIndex: " + prevSelectedIndex);
     
         // Clear existing options
         lotSelect.innerHTML = '<option value="" disabled selected>Choisissez le lot à tirer</option>';
@@ -323,6 +324,7 @@ function SpinWheel(p_ticket) {
         if (prevSelectedIndex > 0 && prevSelectedIndex < lotSelect.options.length) {
             // Attempt to decrement the selection, if possible
             lotSelect.selectedIndex = Math.min(prevSelectedIndex, lotSelect.options.length - 1);
+            logVerbose("lotSelect.selectedIndex: " + lotSelect.selectedIndex);
         } else {
             // If there was no previous selection or it's not applicable, default to the first option
             lotSelect.selectedIndex = 0;
