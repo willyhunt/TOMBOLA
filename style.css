@@ -99,6 +99,8 @@ body {
 
 
 #lotSelectContainer select {
+    color: white !important; /* Change font color to white */
+    font-weight: bold !important; /* Make the font bold */
     width: 50%; 
     margin: 0 auto; 
 }
