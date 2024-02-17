@@ -73,6 +73,7 @@ async function init() {
         if (minIndex !== 10000) {
             lotSelect.value = minIndex;
         }
+        M.FormSelect.init(lotSelect);
 
 
 
@@ -292,15 +293,30 @@ function SpinWheel(p_ticket) {
     function ActivateDrawButton() {
         var btn = document.getElementById('tirageButton');
         btn.className = 'waves-effect waves-light btn red';
-        // Décrémenter la sélection du lot dans le select si possible
-        document.getElementById('lotSelectContainer').style.display = ''; 
-        const lotSelect = document.getElementById('lotSelect');
-        if (lotSelect.selectedIndex > 0) { // Vérifier s'il y a un lot précédent
-            lotSelect.selectedIndex--; // Sélectionner le lot précédent
-        } else {
-            lotSelect.innerHTML = '';
-        }
+        document.getElementById('lotSelectContainer').style.display = ''; // Show the select container if hidden
+    
+        // Additional logic if needed to handle lotSelect state
     }
+    
+    function updateLotSelectOptions() {
+        // Clear existing options
+        const lotSelect = document.getElementById('lotSelect');
+        lotSelect.innerHTML = '<option value="" disabled selected>Choisissez le lot à tirer</option>';
+        
+        // Logic to add new options based on updated criteria
+        ticketsGagnants.forEach((ticket, index) => {
+            if(ticket.affichage) {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = "Lot " + ticket.numeroDuLot + " : " + ticket.nomDuLot;
+                lotSelect.appendChild(option); // Use appendChild to add options at the end
+            }
+        });
+
+        // Reinitialize Materialize select to apply styling to new options
+        M.FormSelect.init(document.querySelectorAll('select'));
+    }
+
     
 
     function UpdateNumbers(p_maskData) {
@@ -332,6 +348,7 @@ function SpinWheel(p_ticket) {
             logVerbose("Spin completed");
             document.getElementById("commercant").textContent = commercant;
             ActivateDrawButton();
+            updateLotSelectOptions();
             return; // Spin completed
         }
 
@@ -351,6 +368,7 @@ function SpinWheel(p_ticket) {
         logVerbose("winningNumber: " + winningNumber);
         logVerbose("commercant: " + commercant);
         ActivateDrawButton();
+        updateLotSelectOptions();
         return; // Sortir de la fonction
     }
 
