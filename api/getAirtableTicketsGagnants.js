@@ -18,25 +18,27 @@ module.exports = async (req, res) => {
     };
 
     try {
-        console.log(`Requête envoyée à Airtable pour l'Evènement: ${Evenement}`);
+        console.log(`Requête envoyée à Airtable pour l'Evènement: ${IDTirage}`);
         
-        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_COMMERCANTS)}?filterByFormula=FIND(%22${Evenement}%22,{Evènement ID})`;
+        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_TICKETS)}?filterByFormula=FIND(%22${IDTirage}%22,{IDTirage)`;
         const response = await axios.get(url, config);
         const records = response.data.records;
 
         // Modification ici pour inclure les IDs des records
-        const commercantsData = records.map(record => ({
+        const ticketsGagnants = records.map(record => ({
             id: record.id,
-            nomDuCommercant: record.fields["Nom du commerce"] ? record.fields["Nom du commerce"] : "Nom non disponible"
+            nomDuCommercant: record.fields["Nom du Commerçant"] ? record.fields["Nom du Commerçant"] : "non disponible",
+            status: record.fields["Status"] ? record.fields["Status"] : "non disponible",
+            numeroTicketGagnant: record.fields["Numéro Ticket Gagnant"] ? record.fields["Numéro Ticket Gagnant"] : "non disponible"
         }));
 
         // Tri alphabétique des noms des commerçants, pas nécessaire de trier par ID
-        const CommercantsTries = commercantsData.sort((a, b) => a.nomDuCommercant.localeCompare(b.nomDuCommercant));
+        const ticketsGagnantsTries = ticketsGagnants.sort((a, b) => a.numeroTicketGagnant.localeCompare(b.numeroTicketGagnant));
         
         console.log('Données récupérées et traitées avec succès.');
 
         // Réponse avec les données triées, incluant les IDs
-        res.status(200).json({ Commercants: CommercantsTries });
+        res.status(200).json({ TicketsGagnants: ticketsGagnantsTries });
     } catch (error) {
         console.error('Error fetching Airtable data:', error);
         res.status(500).json({ error: 'Failed to fetch data from Airtable' });

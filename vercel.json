@@ -1,6 +1,7 @@
 {
     "rewrites": [
-      { "source": "/formulairedecommande", "destination": "/formulaireDeCommande.html" }
+      { "source": "/formulairedecommande", "destination": "/formulaireDeCommande.html" },
+      { "source": "/formulaireDeReclamation", "destination": "/formulaireDeReclamation.html" }
     ]
   }
   
