@@ -32,8 +32,13 @@ module.exports = async (req, res) => {
             numeroTicketGagnant: record.fields["Numéro Ticket Gagnant"] ? record.fields["Numéro Ticket Gagnant"] : "non disponible"
         }));
 
-        // Tri alphabétique des noms des commerçants, pas nécessaire de trier par ID
-        const ticketsGagnantsTries = ticketsGagnants.sort((a, b) => a.numeroTicketGagnant.localeCompare(b.numeroTicketGagnant));
+        const ticketsGagnantsTries = ticketsGagnants.sort((a, b) => {
+            // Convertir en nombres si ce ne sont pas déjà des nombres
+            const numA = Number(a.numeroTicketGagnant);
+            const numB = Number(b.numeroTicketGagnant);
+            
+            return numA - numB; // Tri croissant
+        });
         
         console.log(`Données récupérées et traitées avec succès: ${ticketsGagnantsTries}`);
 
