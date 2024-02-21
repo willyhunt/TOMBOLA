@@ -4,12 +4,12 @@ module.exports = async (req, res) => {
     console.log('Début du traitement de la requête de commande.');
 
     // Extraire les données nécessaires depuis la requête
-    const { Commercant, NombreCarnets, EmailCommande, Annee } = req.body;
+    const { Commercant, NombreCarnets, EmailCommande, Evenement } = req.body;
 
     // Vérification de la présence des données requises
-    if (!Commercant || !NombreCarnets || !EmailCommande || !Annee) {
+    if (!Commercant || !NombreCarnets || !EmailCommande || !Evenement) {
         console.error('Tous les champs sont requis.');
-        return res.status(400).json({ error: 'Tous les champs sont requis: Commercant, NombreCarnets, EmailCommande, Annee.' });
+        return res.status(400).json({ error: 'Tous les champs sont requis: Commercant, NombreCarnets, EmailCommande, Evenement.' });
     }
 
     const config = {
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
             'Commerçant': [Commercant],
             'Nombre de carnets': parseInt(NombreCarnets, 10),
             'Email de commande': EmailCommande,
-            'Année': [Annee]
+            'Année': [Evenement]
         }
     };
 

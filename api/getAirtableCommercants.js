@@ -3,11 +3,11 @@ const axios = require('axios');
 module.exports = async (req, res) => {
     console.log('Début du traitement de la requête.');
 
-    const Annee = req.query.Annee || (req.body && req.body.Annee);
+    const Evenement = req.query.Evenement || (req.body && req.body.Evenement);
 
-    if (!Annee) {
-        console.error('Annee is required');
-        return res.status(400).json({ error: 'Annee is required' });
+    if (!Evenement) {
+        console.error('Evenement is required');
+        return res.status(400).json({ error: 'Evenement is required' });
     }
 
     const config = {
@@ -18,9 +18,9 @@ module.exports = async (req, res) => {
     };
 
     try {
-        console.log(`Requête envoyée à Airtable pour l'année: ${Annee}`);
+        console.log(`Requête envoyée à Airtable pour l'Evènement: ${Evenement}`);
         
-        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_COMMERCANTS)}?filterByFormula=FIND(%22${Annee}%22,{ID (from Année)})`;
+        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_COMMERCANTS)}?filterByFormula=FIND(%22${Evenement}%22,{Evènement ID})`;
         const response = await axios.get(url, config);
         const records = response.data.records;
 

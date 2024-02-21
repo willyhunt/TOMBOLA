@@ -12,16 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour remplir le select des commercants avec leurs IDs comme valeurs
     async function fetchCommercants() {
-        const annee = getURLParameter('Annee'); // Récupère l'année depuis l'URL
-        console.log(`Récupération des commerçants pour l'année: ${annee}`);
+        const evenement = getURLParameter('Evenement'); // Récupère l'evènement depuis l'URL
+        console.log(`Récupération des commerçants pour l'evènement: ${evenement}`);
 
-        if (!annee) {
-            console.error('Annee est requis en paramètre de l\'URL.');
+        if (!evenement) {
+            console.error('Evenement est requis en paramètre de l\'URL.');
             return;
         }
 
         try {
-            const response = await fetch(`/api/getAirtableCommercants?Annee=${annee}`);
+            const response = await fetch(`/api/getAirtableCommercants?Evenement=${evenement}`);
             if (!response.ok) throw new Error('Réponse réseau non ok');
 
             const data = await response.json();
@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const commercantID = commercantSelect.value;
         const commercantNom = commercantSelect.options[commercantSelect.selectedIndex].text;
         const nombreCarnets = document.getElementById('nombre_carnets').value;
-        const annee = getURLParameter('Annee');
-        // Pas besoin de récupérer l'année si elle n'est pas affichée dans le récapitulatif
+        const evenement = getURLParameter('Evenement');
+        // Pas besoin de récupérer l'evènement si elle n'est pas affichée dans le récapitulatif
     
         // Validation simplifiée (pour exemple, votre implémentation peut varier)
         if (!emailCommande || !commercantID || !nombreCarnets) {
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             EmailCommande: emailCommande,
             Commercant: commercantID, // Utiliser l'ID pour la requête mais stocker le nom pour l'affichage
             NombreCarnets: nombreCarnets,
-            Annee: annee
+            Evenement: evenement
         };
     
         try {

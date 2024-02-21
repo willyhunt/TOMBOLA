@@ -19,14 +19,14 @@ module.exports = async (req, res) => {
         const response = await axios.get(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_TICKETS)}?filterByFormula=FIND(%22${tirageId}%22,{IDTirage})`, config);
         const records = response.data.records;
 
-        const minTicket = records.length > 0 && records[0].fields["Min Ticket (from Tirage)"] ? records[0].fields["Min Ticket (from Tirage)"][0] : null;
-        const maxTicket = records.length > 0 && records[0].fields["Max Ticket (from Tirage)"] ? records[0].fields["Max Ticket (from Tirage)"][0] : null;
+        const minTicket = records.length > 0 && records[0].fields["Min Ticket"] ? records[0].fields["Min Ticket"][0] : null;
+        const maxTicket = records.length > 0 && records[0].fields["Max Ticket"] ? records[0].fields["Max Ticket"][0] : null;
 
         const ticketsGagnants = records.map(record => ({
-            affichage: record.fields["Affichage au tirage (from Lot)"] ? record.fields["Affichage au tirage (from Lot)"][0] : false,
+            affichage: record.fields["Affichage au tirage"] ? record.fields["Affichage au tirage"][0] : false,
             commercant: record.fields["Nom du Commerçant"],
-            duree: record.fields["Durrée du Tirage (s) (from Lot)"],
-            nomDuLot: record.fields["LOT (from Lot)"],
+            duree: record.fields["Durrée du Tirage (s)"],
+            nomDuLot: record.fields["Nom du lot"],
             numeroDuLot: record.fields["Numéro du lot"],
             numeroTicketGagnant: record.fields["Numéro Ticket Gagnant"],
         }));
