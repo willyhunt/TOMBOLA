@@ -3,11 +3,11 @@ const axios = require('axios');
 module.exports = async (req, res) => {
     console.log('Début du traitement de la requête.');
 
-    const Evenement = req.query.Evenement || (req.body && req.body.Evenement);
+    const tirageId = req.query.tirageId || (req.body && req.body.tirageId);
 
-    if (!Evenement) {
-        console.error('Evenement is required');
-        return res.status(400).json({ error: 'Evenement is required' });
+    if (!tirageId) {
+        console.error('tirageId is required');
+        return res.status(400).json({ error: 'tirageId is required' });
     }
 
     const config = {
@@ -18,9 +18,9 @@ module.exports = async (req, res) => {
     };
 
     try {
-        console.log(`Requête envoyée à Airtable pour l'Evènement: ${IDTirage}`);
+        console.log(`Requête envoyée à Airtable pour le tirage: ${tirageId}`);
         
-        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_TICKETS)}?filterByFormula=FIND(%22${IDTirage}%22,{IDTirage)`;
+        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_TICKETS)}?filterByFormula=FIND(%22${tirageId}%22,{IDTirage)`;
         const response = await axios.get(url, config);
         const records = response.data.records;
 
@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
         // Tri alphabétique des noms des commerçants, pas nécessaire de trier par ID
         const ticketsGagnantsTries = ticketsGagnants.sort((a, b) => a.numeroTicketGagnant.localeCompare(b.numeroTicketGagnant));
         
-        console.log('Données récupérées et traitées avec succès.');
+        console.log(`Données récupérées et traitées avec succès: ${ticketsGagnantsTries}`);
 
         // Réponse avec les données triées, incluant les IDs
         res.status(200).json({ TicketsGagnants: ticketsGagnantsTries });
