@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Réclamation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            margin-top: 50px; /* Ajoute une marge en haut de la page */
+        }
+        .logo-uciap {
+            /* Classe pour le logo, permet de modifier la taille */
+            width: 150px; /* Taille initiale du logo */
+            display: block;
+            margin: 0 auto; /* Centre le logo */
+            margin-bottom: 20px; /* Marge entre le logo et le titre */
+        }
+        .container {
+            width: 50%;
+            max-width: 100%; /* Assure que la largeur ne dépasse pas celle de l'écran */
+        }
+        h2 {
+            font-size: 2rem; /* Ajustez selon vos besoins */
+            text-align: center; /* Centre le titre */
+        }
+        .input-field input, .input-field select {
+            width: 100%;
+            margin: 0 auto; /* Centrage */
+        }
+        .btn {
+            display: block;
+            margin: 0 auto; /* Centrage du bouton */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="LOGO-UCIAP-VECTORISE.png" alt="Logo UCIAP" class="logo-uciap">
+    <h2>Formulaire de Réclamation</h2>
+    <form id="formReclamation">
+        <div class="input-field">
+            <input id="email_reclamation" type="email" name="email_reclamation" class="validate" required>
+            <label for="email_reclamation">Email de Reclamation <span class="red-text">*</span></label>
+            <span class="helper-text" data-error="Ce champ est obligatoire"></span>
+        </div>
+        <div class="input-field">
+            <select id="ticketGagnant" name="ticketGagnant" required>
+                <option value="" disabled selected>Choisissez un commerçant</option>
+            </select>
+            <label for="ticketGagnant">Ticket Gagnant <span class="red-text">*</span></label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">
+            <i class="material-icons left">shopping_cart</i>Reclamer
+        </button>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="scriptClaimForm.js"></script>
+</body>
+</html>
