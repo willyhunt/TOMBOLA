@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     try {
         console.log(`Requête envoyée à Airtable pour le tirage: ${tirageId}`);
         
-        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_TICKETS)}?filterByFormula=FIND(%22${tirageId}%22,{IDTirage)`;
+        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${encodeURIComponent(process.env.AIRTABLE_TABLE_TICKETS)}?filterByFormula=FIND(%22${tirageId}%22,{IDTirage})`;
         const response = await axios.get(url, config);
         const records = response.data.records;
 
