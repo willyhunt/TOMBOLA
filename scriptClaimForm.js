@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fonction pour remplir le select des ticketGagnants avec leurs IDs comme valeurs
-    async function fetchTicketsGagnants() {
+    async function fetchticketGagnants() {
         const tirageId = getURLParameter('tirageId'); // Récupère le Tirage depuis l'URL
         console.log(`Récupération des tickets Gagnant pour le Tirage: ${tirageId}`);
 
