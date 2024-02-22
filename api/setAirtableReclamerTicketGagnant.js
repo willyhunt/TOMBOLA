@@ -24,14 +24,14 @@ module.exports = async (req, res) => {
 
     const data = {
         fields: {
-            'Réclamation Email': EmailReclamation,
             'Status': 'Réclamé', // Mise à jour du statut
+           /* 'Réclamation Email': EmailReclamation,
             'Réclamation Prénom': Prenom,
             'Réclamation Nom': Nom,
             'Réclamation Adresse': Adresse,
             'Réclamation Téléphone': Telephone,
             'Réclamation contacté': ContactPref, // Assurez-vous que les valeurs correspondent à celles de votre champ Single Select dans Airtable
-            'Réclamation Infos': InformationsSupplementaires
+            'Réclamation Infos': InformationsSupplementaires*/
         }
     };
 
