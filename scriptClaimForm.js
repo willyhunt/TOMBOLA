@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var elemsTextarea = document.querySelectorAll('textarea');
         M.Textarea.init(elemsTextarea);
     }, 1000); // Delay initialization by 1000 milliseconds*/
-
-    // Fonction pour récupérer les paramètres de l'URL
+  
+    // Foncti on pour récupérer les paramètres de l'URL
     function getURLParameter(name) {
         return new URLSearchParams(window.location.search).get(name);
     }
