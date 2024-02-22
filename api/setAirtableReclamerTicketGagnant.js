@@ -4,10 +4,10 @@ module.exports = async (req, res) => {
     console.log('Début du traitement de la requête de commande.');
 
     // Extraire les données nécessaires depuis la requête
-    const { Commercant, NombreCarnets, EmailCommande, Evenement } = req.body;
+    const { EmailReclamation, iDTicketGagnant } = req.body;
 
     // Vérification de la présence des données requises
-    if (!Commercant || !NombreCarnets || !EmailCommande || !Evenement) {
+    if (!EmailReclamation || !iDTicketGagnant) {
         console.error('Tous les champs sont requis.');
         return res.status(400).json({ error: 'Tous les champs sont requis: Commercant, NombreCarnets, EmailCommande, Evenement.' });
     }
@@ -21,17 +21,14 @@ module.exports = async (req, res) => {
 
     const data = {
         fields: {
-            'Commerçant': [Commercant],
-            'Nombre de carnets': parseInt(NombreCarnets, 10),
-            'Email de commande': EmailCommande,
-            'Evènement': [Evenement]
+            'Email de Réclamation': EmailReclamation
         }
     };
 
     try {
-        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_COMMANDES}`;
+        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_COMMANDES}/${iDTicketGagnant}`;
 
-        const response = await axios.post(url, data, config);
+        const response = await axios.patch(url, data, config);
 
         console.log('Commande ajoutée avec succès.');
 

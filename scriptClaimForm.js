@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fillTicketsGagnantSelect(TicketsGagnants) {
         console.log('Remplissage du select des tickets Gagnant...');
-        selectElement.innerHTML = '<option value="" disabled selected>Choisissez un commerçant</option>';
+        selectElement.innerHTML = '<option value="" disabled selected>Choisissez un Ticket</option>';
         TicketsGagnants.forEach(({ id, numeroTicketGagnant }) => { // Ajustez selon la structure exacte de votre réponse
-            console.log(`Ajout du commerçant: ${numeroTicketGagnant} avec l'ID: ${id}`);
+            console.log(`Ajout du TicketGagnant: ${numeroTicketGagnant} avec l'ID: ${id}`);
             const option = new Option(numeroTicketGagnant, id); // Utilise l'ID comme valeur
             selectElement.appendChild(option);
         });
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
     
         // Récupération des valeurs du formulaire
-        const emailCommande = document.getElementById('email_commande').value;
+        const emailReclamation = document.getElementById('email_commande').value;
         const ticketGagnantSelect = document.getElementById('ticketGagnant');
         const iDTicketGagnant = ticketGagnantSelect.value;
         const numeroTicketGagnant = ticketGagnantSelect.options[ticketGagnantSelect.selectedIndex].text;
@@ -55,19 +55,19 @@ document.addEventListener('DOMContentLoaded', function() {
         // Pas besoin de récupérer le Tirage si elle n'est pas affichée dans le récapitulatif
     
         // Validation simplifiée (pour exemple, votre implémentation peut varier)
-        if (!emailCommande || !iDTicketGagnant || !nombreCarnets) {
+        if (!emailReclamation || !iDTicketGagnant || !nombreCarnets) {
             M.toast({html: 'Veuillez remplir tous les champs requis.'});
             return;
         }
     
         const formData = {
-            EmailCommande: emailCommande,
+            EmailReclamation: emailReclamation,
             iDTicketGagnant: iDTicketGagnant, 
             tirageId: tirageId
         };
     
         try {
-            const response = await fetch('/api/setAirtableCommande', {
+            const response = await fetch('/api/setAirtableReclamerTicketGagnant', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formData),
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
             // Stocker les détails pour l'affichage sur la page de redirection
             localStorage.setItem('commandeDetails', JSON.stringify({
-                emailCommande,
+                emailReclamation,
                 numeroTicketGagnant, // Stocker le nom pour un affichage convivial
             }));
     
