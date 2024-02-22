@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const ticketGagnantSelect = document.getElementById('ticketGagnant');
         const iDTicketGagnant = ticketGagnantSelect.value;
         const tirageId = getURLParameter('tirageId');
+        const ticketGagnantText = ticketGagnantSelect.options[ticketGagnantSelect.selectedIndex].text; 
     
         if (!emailReclamation || !iDTicketGagnant || !nom || !prenom || !contactPref) {
             M.toast({html: 'Veuillez remplir tous les champs requis.'});
@@ -97,7 +98,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
             localStorage.setItem('reclamationDetails', JSON.stringify({
                 emailReclamation,
-                numeroTicketGagnant
+                nom,
+                prenom,
+                adresse,
+                telephone,
+                contactPref,
+                informationsSupplementaires,
+                ticketGagnantText // Stockage du texte pour un affichage significatif
             }));
     
             window.location.href = 'redirectionReclamation.html';
