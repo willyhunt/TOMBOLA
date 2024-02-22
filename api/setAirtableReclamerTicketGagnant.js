@@ -25,8 +25,8 @@ module.exports = async (req, res) => {
     const data = {
         fields: {
             'Status': 'Réclamé', // Mise à jour du statut
-           /* 'Réclamation Email': EmailReclamation,
-            'Réclamation Prénom': Prenom,
+            'Réclamation Email': EmailReclamation,
+            /*'Réclamation Prénom': Prenom,
             'Réclamation Nom': Nom,
             'Réclamation Adresse': Adresse,
             'Réclamation Téléphone': Telephone,
