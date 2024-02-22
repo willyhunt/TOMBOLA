@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
             localStorage.setItem('reclamationDetails', JSON.stringify({
                 emailReclamation,
-                numeroTicketGagnant,
+                numeroTicketGagnant
             }));
     
             window.location.href = 'redirectionReclamation.html';
