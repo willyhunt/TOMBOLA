@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
 
     const data = {
         fields: {
+            'Ticket': [iDTicketGagnant],
             'Email': EmailReclamation,
             'Prénom': Prenom,
             'Nom': Nom,
@@ -35,9 +36,9 @@ module.exports = async (req, res) => {
     };
 
     try {
-        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_TICKETS}/${iDTicketGagnant}`;
+        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_RECLAMATIONS}`;
 
-        const response = await axios.patch(url, data, config);
+        const response = await axios.post(url, data, config);
 
         console.log('Ticket Gagnant patché avec succès.');
 
