@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Pas besoin de récupérer le Tirage si elle n'est pas affichée dans le récapitulatif
     
         // Validation simplifiée (pour exemple, votre implémentation peut varier)
-        if (!emailReclamation || !iDTicketGagnant || !nombreCarnets) {
+        if (!emailReclamation || !iDTicketGagnant) {
             M.toast({html: 'Veuillez remplir tous les champs requis.'});
             return;
         }
