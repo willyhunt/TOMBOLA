@@ -2,13 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('ticketGagnant');
     const form = document.getElementById('formReclamation');
 
-    // Initialiser les composants select de Materialize
-    var elemsSelect = document.querySelectorAll('select');
-    M.FormSelect.init(elemsSelect);
 
-    // Initialiser les zones de texte de Materialize
-    var elemsTextarea = document.querySelectorAll('textarea');
-    M.Textarea.init(elemsTextarea);
+    setTimeout(function() {
+        var elemsSelect = document.querySelectorAll('select');
+        M.FormSelect.init(elemsSelect);
+
+        var elemsTextarea = document.querySelectorAll('textarea');
+        M.Textarea.init(elemsTextarea);
+    }, 1000); // Delay initialization by 1000 milliseconds
 
     // Fonction pour récupérer les paramètres de l'URL
     function getURLParameter(name) {
