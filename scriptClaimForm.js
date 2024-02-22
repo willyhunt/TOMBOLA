@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const selectElement = document.getElementById('ticketGagnant');
+    const form = document.getElementById('formReclamation');
+
     // Initialisation des éléments select
     var elemsSelect = document.querySelectorAll('select');
     M.FormSelect.init(elemsSelect);
@@ -8,35 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (elemTextarea) {
         M.textareaAutoResize(elemTextarea);
     }
-
-    var form = document.getElementById('formReclamation');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (validateForm()) {
-            console.log("Formulaire validé, prêt à être envoyé.");
-        } else {
-            console.log("Erreur de validation, vérifiez vos informations.");
-        }
-    });
-
-    function validateForm() {
-        return true; // Implémentez votre logique de validation ici
-    }
-});
-
-
-
-
-
-/*document.addEventListener('DOMContentLoaded', function() {
-    const selectElement = document.getElementById('ticketGagnant');
-    const form = document.getElementById('formReclamation');
-
-    var elemsSelect = document.querySelectorAll('select');
-    M.FormSelect.init(elemsSelect);
-
-    //var elemsTextarea = document.querySelectorAll('textarea');
-    //M.Textarea.init(elemsTextarea);
 
     // Foncti on pour récupérer les paramètres de l'URL
     function getURLParameter(name) {
@@ -135,4 +109,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fetchticketGagnants();
     form.addEventListener('submit', handleSubmit);
-});*/
+});
