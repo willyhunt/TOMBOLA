@@ -42,12 +42,12 @@
     <img src="LOGO-UCIAP-VECTORISE.png" alt="Logo UCIAP" class="logo-uciap">
     <h2>Formulaire de Réclamation</h2>
     <form id="formReclamation">
+        <div class="input-field">
+            <input id="email_reclamation" type="email" name="email_reclamation" class="validate" required>
+            <label for="email_reclamation">Email de Reclamation <span class="red-text">*</span></label>
+            <span class="helper-text" data-error="Ce champ est obligatoire"></span>
+        </div>
         <div class="input-field"> 
-            <div class="input-field">
-                <input id="email_reclamation" type="email" name="email_reclamation" class="validate" required>
-                <label for="email_reclamation">Email de Reclamation <span class="red-text">*</span></label>
-                <span class="helper-text" data-error="Ce champ est obligatoire"></span>
-            </div>
             <select id="ticketGagnant" name="ticketGagnant" required>
                 <option value="" disabled selected>Choisissez le numéro de votre Ticket</option>
             </select>
