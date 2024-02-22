@@ -5,8 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var elemsSelect = document.querySelectorAll('select');
     M.FormSelect.init(elemsSelect);
 
-    //var elemsTextarea = document.querySelectorAll('textarea');
-    //M.Textarea.init(elemsTextarea);
+    // Initialisation du champ textarea pour les informations supplémentaires
+    var elemsTextarea = document.querySelectorAll('.materialize-textarea');
+    M.textareaAutoResize(elemsTextarea);
 
     // Foncti on pour récupérer les paramètres de l'URL
     function getURLParameter(name) {
