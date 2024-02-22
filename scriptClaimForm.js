@@ -1,12 +1,55 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialisation des éléments select
+    var elemsSelect = document.querySelectorAll('select');
+    var instancesSelect = M.FormSelect.init(elemsSelect);
+
+    // Initialisation du champ textarea pour les informations supplémentaires
+    var elemsTextarea = document.querySelectorAll('.materialize-textarea');
+    M.textareaAutoResize(elemsTextarea);
+
+    // Gestion de l'envoi du formulaire
+    var form = document.getElementById('formReclamation');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Empêche l'envoi classique du formulaire
+
+        // Validation des champs (exemple simple)
+        if (validateForm()) {
+            // Traitement des données du formulaire
+            // Ici, vous pouvez ajouter la logique pour envoyer les données à un serveur
+            console.log("Formulaire validé, prêt à être envoyé.");
+            // Exemple : sendDataToServer(new FormData(form));
+        } else {
+            // Afficher un message d'erreur ou une indication sur les champs à corriger
+            console.log("Erreur de validation, vérifiez vos informations.");
+        }
+    });
+
+    // Fonction de validation du formulaire (exemple très basique)
+    function validateForm() {
+        // Ici, validez chaque champ comme requis
+        // Cet exemple retourne simplement true pour simplifier
+        return true;
+    }
+
+    // Optionnel : Fonction pour envoyer les données à un serveur
+    // function sendDataToServer(formData) {
+    //     // Utilisez fetch ou XMLHttpRequest pour envoyer les données
+    //     console.log("Envoi des données du formulaire au serveur...");
+    // }
+});
+
+
+
+
+/*document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('ticketGagnant');
     const form = document.getElementById('formReclamation');
 
     var elemsSelect = document.querySelectorAll('select');
     M.FormSelect.init(elemsSelect);
 
-    var elemsTextarea = document.querySelectorAll('textarea');
-    M.Textarea.init(elemsTextarea);
+    //var elemsTextarea = document.querySelectorAll('textarea');
+    //M.Textarea.init(elemsTextarea);
 
     // Foncti on pour récupérer les paramètres de l'URL
     function getURLParameter(name) {
@@ -105,4 +148,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fetchticketGagnants();
     form.addEventListener('submit', handleSubmit);
-});
+});*/
