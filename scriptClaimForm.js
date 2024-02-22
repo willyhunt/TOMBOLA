@@ -2,15 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('ticketGagnant');
     const form = document.getElementById('formReclamation');
 
+    var elemsSelect = document.querySelectorAll('select');
+    M.FormSelect.init(elemsSelect);
 
- /*   setTimeout(function() {
-        var elemsSelect = document.querySelectorAll('select');
-        M.FormSelect.init(elemsSelect);
+    //var elemsTextarea = document.querySelectorAll('textarea');
+    //M.Textarea.init(elemsTextarea);
 
-        var elemsTextarea = document.querySelectorAll('textarea');
-        M.Textarea.init(elemsTextarea);
-    }, 1000); // Delay initialization by 1000 milliseconds*/
-  
     // Foncti on pour récupérer les paramètres de l'URL
     function getURLParameter(name) {
         return new URLSearchParams(window.location.search).get(name);
