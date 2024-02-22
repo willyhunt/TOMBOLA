@@ -46,11 +46,10 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
     
         // Récupération des valeurs du formulaire
-        const emailReclamation = document.getElementById('email_commande').value;
+        const emailReclamation = document.getElementById('email_reclamation').value;
         const ticketGagnantSelect = document.getElementById('ticketGagnant');
         const iDTicketGagnant = ticketGagnantSelect.value;
         const numeroTicketGagnant = ticketGagnantSelect.options[ticketGagnantSelect.selectedIndex].text;
-        const nombreCarnets = document.getElementById('nombre_carnets').value;
         const tirageId = getURLParameter('tirageId');
         // Pas besoin de récupérer le Tirage si elle n'est pas affichée dans le récapitulatif
     
@@ -79,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
     
             // Stocker les détails pour l'affichage sur la page de redirection
-            localStorage.setItem('commandeDetails', JSON.stringify({
+            localStorage.setItem('reclamationDetails', JSON.stringify({
                 emailReclamation,
                 numeroTicketGagnant, // Stocker le nom pour un affichage convivial
             }));
