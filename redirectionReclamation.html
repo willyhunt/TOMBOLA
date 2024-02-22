@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Récapitulatif de la Réclamation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Votre réclamation a été correctement prise en compte, vous recevrez un e-mail récapitulatif sous peu.</h2>
+        <p id="reclamationRecap"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const details = JSON.parse(localStorage.getItem('reclamationDetails'));
+            if(details) {
+                document.getElementById('reclamationRecap').innerHTML = `
+                    <strong>Email de Réclamation:</strong> ${details.emailReclamation}<br>
+                    <strong>Nom:</strong> ${details.nom}<br>
+                    <strong>Prénom:</strong> ${details.prenom}<br>
+                    <strong>Adresse:</strong> ${details.adresse ? details.adresse : 'Non fournie'}<br>
+                    <strong>Téléphone:</strong> ${details.telephone ? details.telephone : 'Non fourni'}<br>
+                    <strong>Contacté par:</strong> ${details.contactPref}<br>
+                    <strong>Informations supplémentaires:</strong> ${details.informationsSupplementaires ? details.informationsSupplementaires : 'Aucune'}
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
