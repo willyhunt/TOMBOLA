@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('ticketGagnant');
-    const form = document.getElementById('formCommande');
+    const form = document.getElementById('formReclamation');
 
     // Initialiser le composant select de Materialize
     M.FormSelect.init(selectElement);
