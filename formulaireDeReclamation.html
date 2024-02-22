@@ -43,6 +43,12 @@
     <h2>Formulaire de Réclamation</h2>
     <form id="formReclamation">
         <div class="input-field">
+            <select id="ticketGagnant" name="ticketGagnant" required>
+                <option value="" disabled selected>Choisissez le numéro de votre Ticket</option>
+            </select>
+            <label for="ticketGagnant">Ticket Gagnant <span class="red-text">*</span></label>
+        </div>
+        <div class="input-field">
             <input id="nom" type="text" name="nom" class="validate" required>
             <label for="nom">Nom <span class="red-text">*</span></label>
         </div>
