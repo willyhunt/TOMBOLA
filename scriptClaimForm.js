@@ -50,6 +50,18 @@ document.addEventListener('DOMContentLoaded', function() {
         M.FormSelect.init(selectElement);
     }
 
+    // Fonction pour valider l'adresse e-mail
+    function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    // Fonction pour valider le numéro de téléphone
+    function validatePhone(phone) {
+        const regex = /^\+?(\d{10,15})$/; // Modifiez selon le format souhaité
+        return regex.test(phone);
+    }
+
     // Fonction pour valider et envoyer le formulaire
     async function handleSubmit(event) {
         event.preventDefault();
@@ -71,7 +83,17 @@ document.addEventListener('DOMContentLoaded', function() {
             M.toast({html: 'Veuillez remplir tous les champs requis.'});
             return;
         }
-    
+     
+        // Validation de l'adresse e-mail et du numéro de téléphone
+        if (!validateEmail(emailReclamation)) {
+            M.toast({html: 'Adresse e-mail invalide.'});
+            return;
+        }
+        if (!validatePhone(telephone)) {
+            M.toast({html: 'Numéro de téléphone invalide.'});
+            return;
+        }
+        
         const formData = {
             EmailReclamation: emailReclamation,
             Nom: nom,
