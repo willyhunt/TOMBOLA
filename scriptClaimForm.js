@@ -1,42 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialisation des éléments select
     var elemsSelect = document.querySelectorAll('select');
-    var instancesSelect = M.FormSelect.init(elemsSelect);
+    M.FormSelect.init(elemsSelect);
 
-    // Initialisation du champ textarea pour les informations supplémentaires
-    var elemsTextarea = document.querySelectorAll('.materialize-textarea');
-    M.textareaAutoResize(elemsTextarea);
+    // Assurez-vous d'initialiser correctement le textarea
+    var elemTextarea = document.querySelector('.materialize-textarea');
+    if (elemTextarea) {
+        M.textareaAutoResize(elemTextarea);
+    }
 
-    // Gestion de l'envoi du formulaire
     var form = document.getElementById('formReclamation');
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Empêche l'envoi classique du formulaire
-
-        // Validation des champs (exemple simple)
+        e.preventDefault();
         if (validateForm()) {
-            // Traitement des données du formulaire
-            // Ici, vous pouvez ajouter la logique pour envoyer les données à un serveur
             console.log("Formulaire validé, prêt à être envoyé.");
-            // Exemple : sendDataToServer(new FormData(form));
         } else {
-            // Afficher un message d'erreur ou une indication sur les champs à corriger
             console.log("Erreur de validation, vérifiez vos informations.");
         }
     });
 
-    // Fonction de validation du formulaire (exemple très basique)
     function validateForm() {
-        // Ici, validez chaque champ comme requis
-        // Cet exemple retourne simplement true pour simplifier
-        return true;
+        return true; // Implémentez votre logique de validation ici
     }
-
-    // Optionnel : Fonction pour envoyer les données à un serveur
-    // function sendDataToServer(formData) {
-    //     // Utilisez fetch ou XMLHttpRequest pour envoyer les données
-    //     console.log("Envoi des données du formulaire au serveur...");
-    // }
 });
+
 
 
 
