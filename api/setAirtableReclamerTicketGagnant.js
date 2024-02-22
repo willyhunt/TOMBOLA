@@ -4,12 +4,15 @@ module.exports = async (req, res) => {
     console.log('Début du traitement de la requête de Ticket Gagnant.');
 
     // Extraire les données nécessaires depuis la requête
-    const { EmailReclamation, iDTicketGagnant } = req.body;
+    const {
+        EmailReclamation, iDTicketGagnant, Nom, Prenom, Adresse, Telephone,
+        ContactPref, InformationsSupplementaires
+    } = req.body;
 
     // Vérification de la présence des données requises
     if (!EmailReclamation || !iDTicketGagnant) {
-        console.error('Tous les champs sont requis.');
-        return res.status(400).json({ error: 'Tous les champs sont requis: EmailReclamation, iDTicketGagnant.' });
+        console.error('EmailReclamation et iDTicketGagnant sont requis.');
+        return res.status(400).json({ error: 'EmailReclamation et iDTicketGagnant sont requis.' });
     }
 
     const config = {
@@ -21,7 +24,14 @@ module.exports = async (req, res) => {
 
     const data = {
         fields: {
-            'Email de Réclamation': EmailReclamation
+            'Email de Réclamation': EmailReclamation,
+            'Status': 'Réclamé', // Mise à jour du statut
+            'Réclamation Prénom': Prenom,
+            'Réclamation Nom': Nom,
+            'Réclamation Adresse': Adresse,
+            'Réclamation Téléphone': Telephone,
+            'Réclamation contacté': ContactPref, // Assurez-vous que les valeurs correspondent à celles de votre champ Single Select dans Airtable
+            'Réclamation Infos': InformationsSupplementaires
         }
     };
 
@@ -32,10 +42,10 @@ module.exports = async (req, res) => {
 
         console.log('Ticket Gagnant patché avec succès.');
 
-        // Réponse avec les données de l'enregistrement ajouté
-        res.status(200).json({ success: true, message: 'Ticket Gagnant ajoutée avec succès.', data: response.data });
+        // Réponse avec les données de l'enregistrement mis à jour
+        res.status(200).json({ success: true, message: 'Ticket Gagnant mis à jour avec succès.', data: response.data });
     } catch (error) {
-        console.error('Erreur lors de l\'ajout de la Ticket Gagnant dans Airtable:', error);
-        res.status(500).json({ error: 'Failed to add the Ticket Gagnant to Airtable.' });
+        console.error('Erreur lors de la mise à jour du Ticket Gagnant dans Airtable:', error);
+        res.status(500).json({ error: 'Failed to update the Ticket Gagnant in Airtable.' });
     }
 };

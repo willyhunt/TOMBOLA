@@ -2,16 +2,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('ticketGagnant');
     const form = document.getElementById('formReclamation');
 
-    // Initialiser le composant select de Materialize
-    M.FormSelect.init(selectElement);
+    // Initialiser les composants select de Materialize
+    var elemsSelect = document.querySelectorAll('select');
+    M.FormSelect.init(elemsSelect);
+
+    // Initialiser les zones de texte de Materialize
+    var elemsTextarea = document.querySelectorAll('textarea');
+    M.Textarea.init(elemsTextarea);
 
     // Fonction pour récupérer les paramètres de l'URL
     function getURLParameter(name) {
         return new URLSearchParams(window.location.search).get(name);
     }
 
+    // Fonction pour récupérer les tickets gagnants depuis l'API
     async function fetchticketGagnants() {
-        const tirageId = getURLParameter('tirageId'); // Récupère le Tirage depuis l'URL
+        const tirageId = getURLParameter('tirageId');
         console.log(`Récupération des tickets Gagnant pour le Tirage: ${tirageId}`);
 
         if (!tirageId) {
@@ -30,39 +36,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Fonction pour remplir le select des tickets gagnants
     function fillTicketsGagnantSelect(TicketsGagnants) {
         console.log('Remplissage du select des tickets Gagnant...');
         selectElement.innerHTML = '<option value="" disabled selected>Choisissez un Ticket</option>';
-        TicketsGagnants.forEach(({ id, numeroTicketGagnant }) => { // Ajustez selon la structure exacte de votre réponse
+        TicketsGagnants.forEach(({ id, numeroTicketGagnant }) => {
             console.log(`Ajout du TicketGagnant: ${numeroTicketGagnant} avec l'ID: ${id}`);
-            const option = new Option(numeroTicketGagnant, id); // Utilise l'ID comme valeur
+            const option = new Option(numeroTicketGagnant, id);
             selectElement.appendChild(option);
         });
         M.FormSelect.init(selectElement);
     }
 
-    // Fonction pour valider et envoyer le formulaire avec l'ID du commerçant
+    // Fonction pour valider et envoyer le formulaire
     async function handleSubmit(event) {
         event.preventDefault();
     
         // Récupération des valeurs du formulaire
         const emailReclamation = document.getElementById('email_reclamation').value;
+        const nom = document.getElementById('nom').value;
+        const prenom = document.getElementById('prenom').value;
+        const adresse = document.getElementById('adresse').value;
+        const telephone = document.getElementById('telephone').value;
+        const contactPref = document.getElementById('contact_pref').value;
+        const informationsSupplementaires = document.getElementById('informations_supplementaires').value;
         const ticketGagnantSelect = document.getElementById('ticketGagnant');
         const iDTicketGagnant = ticketGagnantSelect.value;
-        const numeroTicketGagnant = ticketGagnantSelect.options[ticketGagnantSelect.selectedIndex].text;
         const tirageId = getURLParameter('tirageId');
-        // Pas besoin de récupérer le Tirage si elle n'est pas affichée dans le récapitulatif
     
-        // Validation simplifiée (pour exemple, votre implémentation peut varier)
-        if (!emailReclamation || !iDTicketGagnant) {
+        if (!emailReclamation || !iDTicketGagnant || !nom || !prenom || !contactPref) {
             M.toast({html: 'Veuillez remplir tous les champs requis.'});
             return;
         }
     
         const formData = {
             EmailReclamation: emailReclamation,
+            Nom: nom,
+            Prenom: prenom,
+            Adresse: adresse,
+            Telephone: telephone,
+            ContactPref: contactPref,
+            InformationsSupplementaires: informationsSupplementaires,
             iDTicketGagnant: iDTicketGagnant, 
-            tirageId: tirageId
+            TirageId: tirageId
         };
     
         try {
@@ -77,20 +93,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`Erreur lors de l'envoi des données: ${errorData.error || response.status}`);
             }
     
-            // Stocker les détails pour l'affichage sur la page de redirection
             localStorage.setItem('reclamationDetails', JSON.stringify({
                 emailReclamation,
-                numeroTicketGagnant, // Stocker le nom pour un affichage convivial
+                numeroTicketGagnant,
             }));
     
-            // Redirection vers la page de récapitulatif
             window.location.href = 'redirection.html';
         } catch (error) {
             console.error('Erreur lors de l\'envoi du formulaire:', error);
             M.toast({html: `Erreur: ${error.message}`});
         }
     }
-   
 
     fetchticketGagnants();
     form.addEventListener('submit', handleSubmit);
