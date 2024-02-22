@@ -43,16 +43,35 @@
     <h2>Formulaire de Réclamation</h2>
     <form id="formReclamation">
         <div class="input-field">
-            <input id="email_reclamation" type="email" name="email_reclamation" class="validate" required>
-            <label for="email_reclamation">Email de Reclamation <span class="red-text">*</span></label>
-            <span class="helper-text" data-error="Ce champ est obligatoire"></span>
+            <input id="nom" type="text" name="nom" class="validate" required>
+            <label for="nom">Nom <span class="red-text">*</span></label>
         </div>
         <div class="input-field">
-            <select id="ticketGagnant" name="ticketGagnant" required>
-                <option value="" disabled selected>Choisissez le numéro de votre Ticket</option>
-            </select>
-            <label for="ticketGagnant">Ticket Gagnant <span class="red-text">*</span></label>
+            <input id="prenom" type="text" name="prenom" class="validate" required>
+            <label for="prenom">Prénom <span class="red-text">*</span></label>
         </div>
+        <div class="input-field">
+            <input id="adresse" type="text" name="adresse" class="validate">
+            <label for="adresse">Adresse</label>
+        </div>
+        <div class="input-field">
+            <input id="telephone" type="tel" name="telephone" class="validate">
+            <label for="telephone">Téléphone</label>
+        </div>
+        <div class="input-field">
+            <select id="contact_pref" name="contact_pref" required>
+                <option value="" disabled selected>Choisissez votre méthode de contact préférée</option>
+                <option value="email">E-mail</option>
+                <option value="telephone">Téléphone</option>
+                <option value="postale">Voie postale</option>
+            </select>
+            <label for="contact_pref">Je désire être contacté en priorité par <span class="red-text">*</span></label>
+        </div>
+        <div class="input-field">
+            <textarea id="informations_supplementaires" name="informations_supplementaires" class="materialize-textarea"></textarea>
+            <label for="informations_supplementaires">Informations supplémentaires</label>
+        </div>
+        
         <button class="btn waves-effect waves-light" type="submit">
             <i class="material-icons left">shopping_cart</i>Reclamer
         </button>
