@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('formReclamation');
 
 
-    setTimeout(function() {
+ /*   setTimeout(function() {
         var elemsSelect = document.querySelectorAll('select');
         M.FormSelect.init(elemsSelect);
 
         var elemsTextarea = document.querySelectorAll('textarea');
         M.Textarea.init(elemsTextarea);
-    }, 1000); // Delay initialization by 1000 milliseconds
+    }, 1000); // Delay initialization by 1000 milliseconds*/
 
     // Fonction pour récupérer les paramètres de l'URL
     function getURLParameter(name) {
