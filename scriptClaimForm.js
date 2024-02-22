@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return new URLSearchParams(window.location.search).get(name);
     }
 
-    // Fonction pour remplir le select des ticketGagnants avec leurs IDs comme valeurs
     async function fetchticketGagnants() {
         const tirageId = getURLParameter('tirageId'); // Récupère le Tirage depuis l'URL
         console.log(`Récupération des tickets Gagnant pour le Tirage: ${tirageId}`);
@@ -49,20 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Récupération des valeurs du formulaire
         const emailCommande = document.getElementById('email_commande').value;
         const ticketGagnantSelect = document.getElementById('ticketGagnant');
+        const iDTicketGagnant = ticketGagnantSelect.value;
         const numeroTicketGagnant = ticketGagnantSelect.options[ticketGagnantSelect.selectedIndex].text;
         const nombreCarnets = document.getElementById('nombre_carnets').value;
         const tirageId = getURLParameter('tirageId');
         // Pas besoin de récupérer le Tirage si elle n'est pas affichée dans le récapitulatif
     
         // Validation simplifiée (pour exemple, votre implémentation peut varier)
-        if (!emailCommande || !numeroTicketGagnant || !nombreCarnets) {
+        if (!emailCommande || !iDTicketGagnant || !nombreCarnets) {
             M.toast({html: 'Veuillez remplir tous les champs requis.'});
             return;
         }
     
         const formData = {
             EmailCommande: emailCommande,
-            numeroTicketGagnant: numeroTicketGagnant, 
+            iDTicketGagnant: iDTicketGagnant, 
             tirageId: tirageId
         };
     
